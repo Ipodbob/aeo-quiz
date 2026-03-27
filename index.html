@@ -1715,11 +1715,21 @@ function showHint(){
   document.getElementById('hintBtn').disabled=true;
   document.getElementById('hintBtn').classList.add('hint-used');
 }
+function fixStudyLetters(studyText){
+  // Strip misleading letter prefixes since options are shuffled
+  // "CORRECT: C) Some answer" -> "CORRECT: Some answer"
+  var t = studyText.replace(/CORRECT:\s*[A-H]\)\s*/gi, 'CORRECT: ');
+  // "A) Some wrong answer explanation" -> "Some wrong answer explanation"
+  // Only strip at start of line (after newline or start)
+  t = t.replace(/(^|\n)\s*[A-H]\)\s+/g, '$1');
+  return t;
+}
 function showStudy(){
   var q=curQs[curIdx];
   var orig=activeQ.find(function(x){return x.id===(q._origId||q.id);});
   if(!orig||!orig.study) return;
-  document.getElementById('studyBox').innerHTML='<strong>\uD83D\uDCD6 Study Material</strong><br><pre style="white-space:pre-wrap;font-family:Lexend,sans-serif;font-size:13px;line-height:1.8;margin-top:8px;">'+escapeHtml(orig.study)+'</pre>';
+  var cleaned = fixStudyLetters(orig.study);
+  document.getElementById('studyBox').innerHTML='<strong>\uD83D\uDCD6 Study Material</strong><br><pre style="white-space:pre-wrap;font-family:Lexend,sans-serif;font-size:13px;line-height:1.8;margin-top:8px;">'+escapeHtml(cleaned)+'</pre>';
   document.getElementById('studyBox').style.display='block';
   document.getElementById('studyBtn').disabled=true;
   document.getElementById('studyBtn').classList.add('hint-used');
