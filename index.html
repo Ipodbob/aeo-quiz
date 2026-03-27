@@ -588,6 +588,207 @@ body.light .search-result .sr-match { background: rgba(184,79,14,0.15); }
 body.light .search-empty { color: #555550; }
 
 /* ============================================================
+   ADMIN PANEL — DARK THEME
+   ============================================================ */
+.admin-header-btn {
+  font-size: 16px; cursor: pointer; padding: 4px 8px; border-radius: 8px;
+  background: transparent; border: 1px solid #8b5cf6; color: #8b5cf6;
+  transition: all 0.2s; display: none; line-height: 1;
+}
+.admin-header-btn:hover { background: rgba(139,92,246,0.15); transform: scale(1.1); }
+.admin-menu-btn {
+  display: none; width: 100%; margin-top: 10px; background: rgba(139,92,246,0.1);
+  border: 1px solid #8b5cf6; color: #8b5cf6;
+}
+.admin-menu-btn:hover { background: rgba(139,92,246,0.2); border-color: #a78bfa; color: #a78bfa; }
+
+/* Admin modal overlay */
+.admin-modal-overlay {
+  position: fixed; inset: 0; z-index: 999; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+}
+.admin-modal-overlay.show { display: flex; }
+.admin-modal {
+  background: #161b22; border: 1px solid #30363d; border-radius: 16px;
+  padding: 28px 24px; width: 90%; max-width: 380px;
+  animation: fadeUp 0.25s ease;
+}
+.admin-modal h3 { font-size: 18px; font-weight: 800; color: #8b5cf6; margin-bottom: 4px; }
+.admin-modal p { font-size: 13px; color: #8b949e; margin-bottom: 16px; }
+.admin-modal input {
+  width: 100%; padding: 14px 18px; border-radius: 10px; font-family: 'Lexend', sans-serif;
+  font-size: 16px; border: 2px solid #30363d; background: #0d1117; color: #e6edf3;
+  outline: none; transition: border-color 0.2s; letter-spacing: 2px;
+}
+.admin-modal input:focus { border-color: #8b5cf6; }
+.admin-modal input::placeholder { color: #484f58; letter-spacing: 0; }
+.admin-modal-error {
+  display: none; background: #2d1216; border: 1px solid #f85149; color: #f85149;
+  border-radius: 8px; padding: 8px 12px; font-size: 12px; margin-top: 10px; text-align: center;
+}
+.admin-modal-btns { display: flex; gap: 10px; margin-top: 14px; }
+.admin-modal-btns .btn { flex: 1; }
+.btn-admin {
+  background: #8b5cf6; color: #ffffff; border: 2px solid #8b5cf6;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 28px; border-radius: 8px; font-family: 'Lexend', sans-serif;
+  font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.btn-admin:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.btn-admin:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+/* Admin screen */
+#adminScreen .admin-title-bar {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+}
+#adminScreen .admin-title-bar h2 { font-size: 20px; font-weight: 800; color: #8b5cf6; }
+.admin-tabs {
+  display: flex; gap: 6px; margin-bottom: 20px; border-bottom: 2px solid #30363d; padding-bottom: 0;
+}
+.admin-tab {
+  padding: 10px 18px; font-family: 'Space Mono', monospace; font-size: 12px;
+  letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+  background: transparent; border: none; color: #8b949e;
+  border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s;
+}
+.admin-tab:hover { color: #e6edf3; }
+.admin-tab.active { color: #8b5cf6; border-bottom-color: #8b5cf6; }
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: block; animation: fadeUp 0.25s ease; }
+
+/* Admin stat cards */
+.admin-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.admin-stat-card {
+  background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+  padding: 16px; text-align: center; transition: all 0.3s;
+}
+.admin-stat-card .asn { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: #8b5cf6; }
+.admin-stat-card .asl { font-size: 11px; color: #8b949e; margin-top: 4px; }
+
+/* Admin tables */
+.admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; }
+.admin-table {
+  width: 100%; border-collapse: collapse; font-size: 13px; min-width: 540px;
+}
+.admin-table th {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; color: #8b949e; text-align: left;
+  padding: 10px 12px; border-bottom: 2px solid #30363d; white-space: nowrap;
+}
+.admin-table td {
+  padding: 10px 12px; border-bottom: 1px solid #21262d; color: #e6edf3;
+  vertical-align: middle;
+}
+.admin-table tr:nth-child(even) td { background: rgba(139,92,246,0.03); }
+.admin-table tr:hover td { background: rgba(139,92,246,0.08); }
+.admin-role-badge {
+  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px; display: inline-block;
+}
+.admin-role-badge.role-admin { background: rgba(240,136,62,0.15); color: #f0883e; border: 1px solid #f0883e; }
+.admin-role-badge.role-user { background: rgba(139,148,158,0.15); color: #8b949e; border: 1px solid #484f58; }
+.admin-action-btn {
+  font-family: 'Space Mono', monospace; font-size: 10px; padding: 4px 10px;
+  border-radius: 6px; cursor: pointer; border: 1px solid; transition: all 0.15s;
+  background: transparent; white-space: nowrap;
+}
+.admin-action-btn.reset-btn { color: #58a6ff; border-color: #58a6ff; }
+.admin-action-btn.reset-btn:hover { background: rgba(88,166,255,0.12); }
+.admin-action-btn.delete-btn { color: #f85149; border-color: #f85149; }
+.admin-action-btn.delete-btn:hover { background: rgba(248,81,73,0.12); }
+
+/* Score color coding */
+.score-green { color: #3fb950; }
+.score-yellow { color: #d29922; }
+.score-red { color: #f85149; }
+
+/* Activity list */
+.admin-activity-list { max-height: 600px; overflow-y: auto; }
+.admin-activity-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px;
+  background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+  margin-bottom: 6px; font-size: 13px;
+}
+.admin-activity-item .aa-name { font-weight: 700; color: #e6edf3; min-width: 90px; flex-shrink: 0; }
+.admin-activity-item .aa-badge {
+  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0;
+}
+.aa-badge.act-login { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.aa-badge.act-register { background: rgba(63,185,80,0.15); color: #3fb950; }
+.aa-badge.act-quiz_complete { background: rgba(210,153,34,0.15); color: #d29922; }
+.aa-badge.act-reset { background: rgba(248,81,73,0.15); color: #f85149; }
+.aa-badge.act-admin { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+.admin-activity-item .aa-detail { flex: 1; color: #8b949e; }
+.admin-activity-item .aa-time { font-family: 'Space Mono', monospace; font-size: 11px; color: #484f58; flex-shrink: 0; white-space: nowrap; }
+
+/* Admin spinner */
+.admin-spinner { text-align: center; padding: 40px; color: #8b949e; font-size: 14px; }
+.admin-spinner::before { content: ''; display: block; width: 28px; height: 28px; margin: 0 auto 12px; border: 3px solid #30363d; border-top-color: #8b5cf6; border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+/* ============================================================
+   ADMIN PANEL — LIGHT THEME
+   ============================================================ */
+body.light .admin-header-btn { border-color: #7c3aed; color: #7c3aed; }
+body.light .admin-header-btn:hover { background: rgba(124,58,237,0.1); }
+body.light .admin-menu-btn { background: rgba(124,58,237,0.06); border-color: #7c3aed; color: #7c3aed; }
+body.light .admin-menu-btn:hover { background: rgba(124,58,237,0.12); border-color: #6d28d9; color: #6d28d9; }
+body.light .admin-modal { background: #ffffff; border-color: #d0cdc6; }
+body.light .admin-modal h3 { color: #7c3aed; }
+body.light .admin-modal p { color: #555550; }
+body.light .admin-modal input { border-color: #d0cdc6; background: #f2f0eb; color: #111111; }
+body.light .admin-modal input:focus { border-color: #7c3aed; }
+body.light .admin-modal input::placeholder { color: #aaa8a0; }
+body.light .admin-modal-error { background: #fadedc; border-color: #a82118; color: #a82118; }
+body.light .btn-admin { background: #7c3aed; border-color: #7c3aed; }
+body.light #adminScreen .admin-title-bar h2 { color: #7c3aed; }
+body.light .admin-tabs { border-bottom-color: #d0cdc6; }
+body.light .admin-tab { color: #555550; }
+body.light .admin-tab:hover { color: #111111; }
+body.light .admin-tab.active { color: #7c3aed; border-bottom-color: #7c3aed; }
+body.light .admin-stat-card { background: #ffffff; border-color: #d0cdc6; }
+body.light .admin-stat-card .asn { color: #7c3aed; }
+body.light .admin-stat-card .asl { color: #555550; }
+body.light .admin-table th { color: #555550; border-bottom-color: #d0cdc6; }
+body.light .admin-table td { color: #111111; border-bottom-color: #e8e5df; }
+body.light .admin-table tr:nth-child(even) td { background: rgba(124,58,237,0.03); }
+body.light .admin-table tr:hover td { background: rgba(124,58,237,0.06); }
+body.light .admin-role-badge.role-admin { background: rgba(184,79,14,0.1); color: #b84f0e; border-color: #b84f0e; }
+body.light .admin-role-badge.role-user { background: rgba(85,85,80,0.1); color: #555550; border-color: #aaa8a0; }
+body.light .admin-action-btn.reset-btn { color: #1452a8; border-color: #1452a8; }
+body.light .admin-action-btn.reset-btn:hover { background: rgba(20,82,168,0.08); }
+body.light .admin-action-btn.delete-btn { color: #a82118; border-color: #a82118; }
+body.light .admin-action-btn.delete-btn:hover { background: rgba(168,33,24,0.08); }
+body.light .score-green { color: #186128; }
+body.light .score-yellow { color: #8a6d0b; }
+body.light .score-red { color: #a82118; }
+body.light .admin-activity-item { background: #ffffff; border-color: #d0cdc6; }
+body.light .admin-activity-item .aa-name { color: #111111; }
+body.light .aa-badge.act-login { background: rgba(20,82,168,0.1); color: #1452a8; }
+body.light .aa-badge.act-register { background: rgba(24,97,40,0.1); color: #186128; }
+body.light .aa-badge.act-quiz_complete { background: rgba(138,109,11,0.1); color: #8a6d0b; }
+body.light .aa-badge.act-reset { background: rgba(168,33,24,0.1); color: #a82118; }
+body.light .aa-badge.act-admin { background: rgba(124,58,237,0.1); color: #7c3aed; }
+body.light .admin-activity-item .aa-detail { color: #555550; }
+body.light .admin-activity-item .aa-time { color: #aaa8a0; }
+body.light .admin-spinner { color: #555550; }
+body.light .admin-spinner::before { border-color: #d0cdc6; border-top-color: #7c3aed; }
+
+/* ============================================================
+   ADMIN PANEL — RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .admin-stat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .admin-stat-card { padding: 12px; }
+  .admin-stat-card .asn { font-size: 20px; }
+  .admin-tab { padding: 8px 12px; font-size: 10px; }
+  .admin-modal { padding: 20px 16px; }
+  .admin-activity-item { flex-wrap: wrap; gap: 6px; padding: 10px 12px; }
+  .admin-activity-item .aa-name { min-width: auto; }
+}
+
+/* ============================================================
    NEW FEATURES — RESPONSIVE
    ============================================================ */
 @media (max-width: 480px) {
@@ -616,6 +817,7 @@ body.light .search-empty { color: #555550; }
   <div style="display:flex;align-items:center;gap:10px;">
     <div class="score-pill" id="headerScore" style="display:none">Score: <span id="liveScore">0</span>/<span id="liveTot">0</span></div>
     <div class="profile-pill" id="profilePill" onclick="showSettingsScreen()" style="display:none" title="Settings"><span class="profile-icon">&#x1F464;</span><span id="profileName">User</span></div>
+    <button class="admin-header-btn" id="adminHeaderBtn" onclick="openAdminPrompt()" title="Admin Panel">&#x1F6E1;</button>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle light/dark mode">&#x1F319;</button>
   </div>
 </header>
@@ -665,6 +867,7 @@ body.light .search-empty { color: #555550; }
       <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="showSettingsScreen()">&#x2699; Settings</button>
       <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="logOut()">&#x1F6AA; Log Out</button>
     </div>
+    <button class="btn admin-menu-btn" id="adminMenuBtn" onclick="openAdminPrompt()">&#x1F6E1; Admin Panel</button>
   </div>
 
   <!-- CATEGORY -->
@@ -906,8 +1109,54 @@ body.light .search-empty { color: #555550; }
     </div>
   </div>
 
+  <!-- ADMIN PANEL -->
+  <div class="screen" id="adminScreen">
+    <div class="admin-title-bar">
+      <h2>&#x1F6E1; Admin Panel</h2>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-admin-tab="overview" onclick="switchAdminTab('overview')">Overview</button>
+      <button class="admin-tab" data-admin-tab="users" onclick="switchAdminTab('users')">Users</button>
+      <button class="admin-tab" data-admin-tab="activity" onclick="switchAdminTab('activity')">Activity</button>
+    </div>
+    <div class="admin-tab-content active" id="adminTabOverview">
+      <div class="admin-stat-grid" id="adminStatGrid">
+        <div class="admin-spinner">Loading stats...</div>
+      </div>
+      <div class="section-label" style="margin-bottom:10px">Popular Quizzes</div>
+      <div class="admin-table-wrap" id="adminPopularWrap">
+        <div class="admin-spinner">Loading...</div>
+      </div>
+    </div>
+    <div class="admin-tab-content" id="adminTabUsers">
+      <div class="admin-table-wrap" id="adminUsersWrap">
+        <div class="admin-spinner">Loading users...</div>
+      </div>
+    </div>
+    <div class="admin-tab-content" id="adminTabActivity">
+      <div class="admin-activity-list" id="adminActivityList">
+        <div class="admin-spinner">Loading activity...</div>
+      </div>
+    </div>
+  </div>
+
   <!-- SMART REVIEW QUIZ (reuses quizScreen, this is just a launching point) -->
 
+</div>
+
+<!-- Admin password modal (outside container) -->
+<div class="admin-modal-overlay" id="adminModalOverlay">
+  <div class="admin-modal">
+    <h3>&#x1F512; Admin Access</h3>
+    <p>Enter the admin password to continue.</p>
+    <input type="password" id="adminPwInput" placeholder="Admin password" autocomplete="off">
+    <div class="admin-modal-error" id="adminModalError">Incorrect password. Try again.</div>
+    <div class="admin-modal-btns">
+      <button class="btn btn-secondary" onclick="closeAdminModal()">Cancel</button>
+      <button class="btn btn-admin" id="adminPwSubmitBtn" onclick="submitAdminPassword()">Unlock</button>
+    </div>
+  </div>
 </div>
 <script>
 
@@ -1551,6 +1800,7 @@ function initUserProfile(){
     aeoUserName = localStorage.getItem('aeoUserName') || '';
     aeoUserPin = localStorage.getItem('aeoUserPin') || '';
     aeoUserPublic = localStorage.getItem('aeoUserPublic') === 'yes';
+    aeoUserRole = localStorage.getItem('aeoUserRole') || '';
   } catch(e){}
   if(!aeoUserName || !aeoUserPin){
     showScreen('welcomeScreen');
@@ -1559,7 +1809,16 @@ function initUserProfile(){
   }
   document.getElementById('profileName').textContent = aeoUserName;
   document.getElementById('profilePill').style.display = 'flex';
-  apiCall({action:'auth', name:aeoUserName, pin:aeoUserPin, device:getDeviceId()});
+  updateAdminVisibility();
+  // Auth call with role detection
+  var authUrl = API_URL + '?action=auth&name=' + encodeURIComponent(aeoUserName) + '&pin=' + encodeURIComponent(aeoUserPin) + '&device=' + encodeURIComponent(getDeviceId());
+  fetch(authUrl, {mode:'cors',redirect:'follow'}).then(function(r){ return r.json(); }).then(function(data){
+    if(data && data.ok && data.role){
+      aeoUserRole = data.role;
+      try { localStorage.setItem('aeoUserRole', aeoUserRole); } catch(e){}
+      updateAdminVisibility();
+    }
+  }).catch(function(){});
   return true;
 }
 
@@ -1598,13 +1857,16 @@ function submitAuth(){
       aeoUserName = realName;
       aeoUserPin = pin;
       aeoUserPublic = false;
+      aeoUserRole = data.role || 'user';
       try {
         localStorage.setItem('aeoUserName', realName);
         localStorage.setItem('aeoUserPin', pin);
         localStorage.setItem('aeoUserPublic', 'no');
+        localStorage.setItem('aeoUserRole', aeoUserRole);
       } catch(e){}
       document.getElementById('profileName').textContent = realName;
       document.getElementById('profilePill').style.display = 'flex';
+      updateAdminVisibility();
       showMainMenu();
     } else {
       errBox.textContent = data.error || 'Something went wrong';
@@ -1622,6 +1884,7 @@ function submitAuth(){
     } catch(e){}
     document.getElementById('profileName').textContent = name;
     document.getElementById('profilePill').style.display = 'flex';
+    updateAdminVisibility();
     showMainMenu();
   });
 }
@@ -1664,11 +1927,15 @@ function logOut(){
   if(!confirm('Log out? Your server data is safe. You can log back in with your name and PIN.')) return;
   aeoUserName = '';
   aeoUserPin = '';
+  aeoUserRole = '';
   try {
     localStorage.removeItem('aeoUserName');
     localStorage.removeItem('aeoUserPin');
+    localStorage.removeItem('aeoUserRole');
+    sessionStorage.removeItem('aeoAdminPw');
   } catch(e){}
   document.getElementById('profilePill').style.display = 'none';
+  updateAdminVisibility();
   showScreen('welcomeScreen');
 }
 
@@ -1686,13 +1953,16 @@ function resetAllUserData(){
     var keysToRemove = [];
     for(var i = 0; i < localStorage.length; i++){
       var key = localStorage.key(i);
-      if(key && (key.startsWith('nqState_') || key.startsWith('aeoSR_') || key === 'aeoUserName' || key === 'aeoUserPin' || key === 'aeoUserPublic')) keysToRemove.push(key);
+      if(key && (key.startsWith('nqState_') || key.startsWith('aeoSR_') || key === 'aeoUserName' || key === 'aeoUserPin' || key === 'aeoUserPublic' || key === 'aeoUserRole')) keysToRemove.push(key);
     }
     keysToRemove.forEach(function(k){ localStorage.removeItem(k); });
+    sessionStorage.removeItem('aeoAdminPw');
   } catch(e){}
   aeoUserName = '';
   aeoUserPublic = false;
+  aeoUserRole = '';
   document.getElementById('profilePill').style.display = 'none';
+  updateAdminVisibility();
   showScreen('welcomeScreen');
 }
 
@@ -2088,6 +2358,286 @@ function openSearchResult(room, questionId){
 }
 
 /* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+var aeoUserRole = '';
+
+function updateAdminVisibility(){
+  var isAdmin = aeoUserRole === 'admin';
+  var headerBtn = document.getElementById('adminHeaderBtn');
+  var menuBtn = document.getElementById('adminMenuBtn');
+  if(headerBtn) headerBtn.style.display = isAdmin ? 'inline-block' : 'none';
+  if(menuBtn) menuBtn.style.display = isAdmin ? 'block' : 'none';
+}
+
+function adminApiCall(params, cb){
+  var adminpw = '';
+  try { adminpw = sessionStorage.getItem('aeoAdminPw') || ''; } catch(e){}
+  if(!adminpw){ if(cb) cb(null); return; }
+  var fullParams = {};
+  for(var k in params) fullParams[k] = params[k];
+  fullParams.name = aeoUserName;
+  fullParams.pin = aeoUserPin;
+  fullParams.adminpw = adminpw;
+  try {
+    var url = API_URL + '?' + Object.keys(fullParams).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(fullParams[k]); }).join('&');
+    fetch(url, {mode:'cors',redirect:'follow'}).then(function(r){ return r.json(); }).then(function(data){ if(cb) cb(data); }).catch(function(e){ if(cb) cb(null); });
+  } catch(e){ if(cb) cb(null); }
+}
+
+function relativeTime(dateStr){
+  if(!dateStr) return '—';
+  var now = Date.now();
+  var then = new Date(dateStr).getTime();
+  if(isNaN(then)) return dateStr;
+  var diff = Math.max(0, now - then);
+  var sec = Math.floor(diff / 1000);
+  if(sec < 60) return 'just now';
+  var min = Math.floor(sec / 60);
+  if(min < 60) return min + 'm ago';
+  var hr = Math.floor(min / 60);
+  if(hr < 24) return hr + 'h ago';
+  var day = Math.floor(hr / 24);
+  if(day < 30) return day + 'd ago';
+  var mo = Math.floor(day / 30);
+  if(mo < 12) return mo + 'mo ago';
+  return Math.floor(mo / 12) + 'y ago';
+}
+
+function openAdminPrompt(){
+  var stored = '';
+  try { stored = sessionStorage.getItem('aeoAdminPw') || ''; } catch(e){}
+  if(stored){
+    showAdminPanel();
+    return;
+  }
+  var overlay = document.getElementById('adminModalOverlay');
+  var input = document.getElementById('adminPwInput');
+  var errBox = document.getElementById('adminModalError');
+  errBox.style.display = 'none';
+  input.value = '';
+  overlay.classList.add('show');
+  setTimeout(function(){ input.focus(); }, 100);
+}
+
+function closeAdminModal(){
+  document.getElementById('adminModalOverlay').classList.remove('show');
+  document.getElementById('adminPwInput').value = '';
+  document.getElementById('adminModalError').style.display = 'none';
+}
+
+function submitAdminPassword(){
+  var pw = document.getElementById('adminPwInput').value.trim();
+  if(!pw) return;
+  var btn = document.getElementById('adminPwSubmitBtn');
+  var errBox = document.getElementById('adminModalError');
+  btn.disabled = true;
+  btn.textContent = 'Verifying...';
+  errBox.style.display = 'none';
+
+  var params = {action:'admin_auth', name:aeoUserName, pin:aeoUserPin, adminpw:pw};
+  var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+  fetch(url, {mode:'cors',redirect:'follow'}).then(function(r){ return r.json(); }).then(function(data){
+    btn.disabled = false;
+    btn.textContent = 'Unlock';
+    if(data && data.ok){
+      try { sessionStorage.setItem('aeoAdminPw', pw); } catch(e){}
+      closeAdminModal();
+      showAdminPanel();
+    } else {
+      errBox.textContent = (data && data.error) || 'Incorrect password. Try again.';
+      errBox.style.display = 'block';
+      document.getElementById('adminPwInput').value = '';
+      document.getElementById('adminPwInput').focus();
+    }
+  }).catch(function(){
+    btn.disabled = false;
+    btn.textContent = 'Unlock';
+    errBox.textContent = 'Network error. Please try again.';
+    errBox.style.display = 'block';
+  });
+}
+
+(function(){
+  var pwInput = document.getElementById('adminPwInput');
+  if(pwInput){
+    pwInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') submitAdminPassword();
+      if(e.key === 'Escape') closeAdminModal();
+    });
+  }
+  var overlay = document.getElementById('adminModalOverlay');
+  if(overlay){
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeAdminModal();
+    });
+  }
+})();
+
+function showAdminPanel(){
+  showScreen('adminScreen');
+  switchAdminTab('overview');
+}
+
+function switchAdminTab(tab){
+  document.querySelectorAll('.admin-tab').forEach(function(t){
+    t.classList.toggle('active', t.getAttribute('data-admin-tab') === tab);
+  });
+  document.querySelectorAll('.admin-tab-content').forEach(function(c){ c.classList.remove('active'); });
+  var tabEl = document.getElementById('adminTab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+  if(tabEl){
+    tabEl.classList.add('active');
+  }
+  if(tab === 'overview') loadAdminOverview();
+  else if(tab === 'users') loadAdminUsers();
+  else if(tab === 'activity') loadAdminActivity();
+}
+
+function loadAdminOverview(){
+  var grid = document.getElementById('adminStatGrid');
+  var popWrap = document.getElementById('adminPopularWrap');
+  grid.innerHTML = '<div class="admin-spinner">Loading stats...</div>';
+  popWrap.innerHTML = '<div class="admin-spinner">Loading...</div>';
+
+  adminApiCall({action:'admin_stats'}, function(data){
+    if(!data){
+      grid.innerHTML = '<div class="admin-spinner">Failed to load stats.</div>';
+      popWrap.innerHTML = '';
+      return;
+    }
+    grid.innerHTML =
+      '<div class="admin-stat-card"><div class="asn">' + (data.totalUsers||0) + '</div><div class="asl">Total Users</div></div>' +
+      '<div class="admin-stat-card"><div class="asn">' + (data.totalQuizzes||0) + '</div><div class="asl">Quizzes Taken</div></div>' +
+      '<div class="admin-stat-card"><div class="asn">' + (data.totalQuestions||0) + '</div><div class="asl">Questions</div></div>' +
+      '<div class="admin-stat-card"><div class="asn">' + (data.activeToday||0) + '</div><div class="asl">Active Today</div></div>' +
+      '<div class="admin-stat-card"><div class="asn">' + (data.activeWeek||0) + '</div><div class="asl">Active This Week</div></div>';
+
+    var pq = data.popularQuizzes || [];
+    if(pq.length === 0){
+      popWrap.innerHTML = '<div style="color:#8b949e;font-size:13px;padding:10px;">No quiz data yet.</div>';
+      return;
+    }
+    var html = '<table class="admin-table"><thead><tr><th>Quiz</th><th>Attempts</th><th>Avg Score</th></tr></thead><tbody>';
+    pq.forEach(function(q){
+      var avg = parseFloat(q.avgScore)||0;
+      var cls = avg >= 75 ? 'score-green' : (avg >= 50 ? 'score-yellow' : 'score-red');
+      html += '<tr><td>' + escH(q.quiz||'—') + '</td><td>' + (q.attempts||0) + '</td><td class="' + cls + '">' + avg.toFixed(1) + '%</td></tr>';
+    });
+    html += '</tbody></table>';
+    popWrap.innerHTML = html;
+  });
+}
+
+function loadAdminUsers(){
+  var wrap = document.getElementById('adminUsersWrap');
+  wrap.innerHTML = '<div class="admin-spinner">Loading users...</div>';
+
+  adminApiCall({action:'admin_users'}, function(data){
+    if(!data || !Array.isArray(data)){
+      wrap.innerHTML = '<div class="admin-spinner">Failed to load users.</div>';
+      return;
+    }
+    if(data.length === 0){
+      wrap.innerHTML = '<div style="color:#8b949e;font-size:13px;padding:10px;">No users found.</div>';
+      return;
+    }
+    data.sort(function(a,b){
+      var da = new Date(b.lastSeen||0).getTime();
+      var db = new Date(a.lastSeen||0).getTime();
+      return da - db;
+    });
+    var html = '<table class="admin-table"><thead><tr><th>Name</th><th>Last Seen</th><th>Quizzes</th><th>Questions</th><th>Public</th><th>Role</th><th>Actions</th></tr></thead><tbody>';
+    data.forEach(function(u){
+      var roleCls = u.role === 'admin' ? 'role-admin' : 'role-user';
+      var roleLabel = u.role === 'admin' ? 'admin' : 'user';
+      html += '<tr>' +
+        '<td style="font-weight:700">' + escH(u.name) + '</td>' +
+        '<td>' + relativeTime(u.lastSeen) + '</td>' +
+        '<td>' + (u.totalQuizzes||0) + '</td>' +
+        '<td>' + (u.totalQuestions||0) + '</td>' +
+        '<td>' + (u.isPublic ? 'Yes' : 'No') + '</td>' +
+        '<td><span class="admin-role-badge ' + roleCls + '">' + roleLabel + '</span></td>' +
+        '<td style="white-space:nowrap;display:flex;gap:6px;">' +
+          '<button class="admin-action-btn reset-btn" onclick="adminResetPin(\'' + escAttr(u.name) + '\')">Reset PIN</button>' +
+          '<button class="admin-action-btn delete-btn" onclick="adminDeleteUser(\'' + escAttr(u.name) + '\')">Delete</button>' +
+        '</td>' +
+      '</tr>';
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  });
+}
+
+function loadAdminActivity(){
+  var list = document.getElementById('adminActivityList');
+  list.innerHTML = '<div class="admin-spinner">Loading activity...</div>';
+
+  adminApiCall({action:'admin_activity', limit:100}, function(data){
+    if(!data || !Array.isArray(data)){
+      list.innerHTML = '<div class="admin-spinner">Failed to load activity.</div>';
+      return;
+    }
+    if(data.length === 0){
+      list.innerHTML = '<div style="color:#8b949e;font-size:13px;padding:10px;">No activity found.</div>';
+      return;
+    }
+    var html = '';
+    data.forEach(function(e){
+      var action = (e.action||'').toLowerCase();
+      var badgeCls = 'act-login';
+      if(action === 'register') badgeCls = 'act-register';
+      else if(action === 'quiz_complete') badgeCls = 'act-quiz_complete';
+      else if(action === 'reset') badgeCls = 'act-reset';
+      else if(action.indexOf('admin') === 0) badgeCls = 'act-admin';
+      else if(action === 'login') badgeCls = 'act-login';
+
+      html += '<div class="admin-activity-item">' +
+        '<span class="aa-name">' + escH(e.name||'—') + '</span>' +
+        '<span class="aa-badge ' + badgeCls + '">' + escH(e.action||'—') + '</span>' +
+        '<span class="aa-detail">' + escH(e.detail||'') + '</span>' +
+        '<span class="aa-time">' + relativeTime(e.date) + '</span>' +
+      '</div>';
+    });
+    list.innerHTML = html;
+  });
+}
+
+function escH(s){
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function escAttr(s){
+  return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"');
+}
+
+function adminResetPin(target){
+  if(!confirm('Reset PIN for "' + target + '"?\n\nThis will force them to re-register with a new PIN.')) return;
+  adminApiCall({action:'admin_reset_pin', target:target}, function(data){
+    if(data && data.ok){
+      alert('PIN reset for "' + target + '".');
+      loadAdminUsers();
+    } else {
+      alert('Failed: ' + ((data && data.error) || 'Unknown error'));
+    }
+  });
+}
+
+function adminDeleteUser(target){
+  if(!confirm('DELETE user "' + target + '"?\n\nThis will permanently remove all their data.')) return;
+  if(!confirm('Are you absolutely sure? This cannot be undone.')) return;
+  adminApiCall({action:'admin_delete_user', target:target}, function(data){
+    if(data && data.ok){
+      alert('User "' + target + '" deleted.');
+      loadAdminUsers();
+    } else {
+      alert('Failed: ' + ((data && data.error) || 'Unknown error'));
+    }
+  });
+}
+
+/* ============================================================
    THEME
    ============================================================ */
 function toggleTheme(){
@@ -2104,7 +2654,7 @@ function toggleTheme(){
   }catch(e){}
   // ?logout in URL forces re-login
   if(window.location.search.includes('logout') || window.location.hash.includes('logout')){
-    try { localStorage.removeItem('aeoUserName'); localStorage.removeItem('aeoUserPin'); } catch(e){}
+    try { localStorage.removeItem('aeoUserName'); localStorage.removeItem('aeoUserPin'); localStorage.removeItem('aeoUserRole'); sessionStorage.removeItem('aeoAdminPw'); } catch(e){}
     window.history.replaceState(null,'',window.location.pathname);
   }
   // Initialize user profile — if no name, shows welcome screen instead of main menu
