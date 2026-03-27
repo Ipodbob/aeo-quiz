@@ -383,6 +383,230 @@ body.light .hint-box { background: #fff3e8; border: 1px solid #b84f0e; color: #7
 
 /* Ensure buttons and interactive elements have a minimum tap target */
 button, .option, .picker-item, .cat-card { min-height: 44px; }
+
+/* ============================================================
+   NEW FEATURES — DARK THEME
+   ============================================================ */
+
+/* Profile pill in header */
+.profile-pill {
+  font-family: 'Space Mono', monospace; font-size: 12px;
+  border-radius: 20px; padding: 4px 12px; cursor: pointer;
+  background: #1c2333; border: 1px solid #30363d; color: #8b949e;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis;
+}
+.profile-pill:hover { border-color: #f0883e; color: #f0883e; }
+.profile-pill .profile-icon { font-size: 14px; flex-shrink: 0; }
+
+/* Welcome screen */
+.welcome-hero { text-align: center; padding: 60px 0 40px; }
+.welcome-hero h1 { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; color: #e6edf3; }
+.welcome-hero h1 em { font-style: normal; color: #f0883e; }
+.welcome-hero p { font-size: 15px; color: #8b949e; margin-bottom: 30px; line-height: 1.8; }
+.welcome-input {
+  width: 100%; padding: 16px 20px; border-radius: 10px; font-family: 'Lexend', sans-serif;
+  font-size: 16px; border: 2px solid #30363d; background: #161b22; color: #e6edf3;
+  outline: none; transition: border-color 0.2s;
+}
+.welcome-input:focus { border-color: #f0883e; }
+.welcome-input::placeholder { color: #484f58; }
+.input-group { margin-bottom: 20px; text-align: left; }
+.input-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #8b949e; margin-bottom: 8px; }
+
+/* Settings screen */
+.settings-section { margin-bottom: 28px; }
+.settings-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #e6edf3; }
+.settings-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 16px; border-radius: 10px; margin-bottom: 8px;
+  background: #161b22; border: 1px solid #30363d;
+}
+.settings-row .settings-label { font-size: 14px; color: #e6edf3; }
+.settings-row .settings-sub { font-size: 12px; color: #8b949e; margin-top: 2px; }
+.toggle-switch {
+  position: relative; width: 48px; height: 26px; flex-shrink: 0;
+  background: #30363d; border-radius: 13px; cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-switch.active { background: #f0883e; }
+.toggle-switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s;
+}
+.toggle-switch.active::after { transform: translateX(22px); }
+
+/* Leaderboard */
+.lb-banner {
+  text-align: center; padding: 20px; border-radius: 12px; margin-bottom: 20px;
+  background: rgba(240,136,62,0.12); border: 1px solid #f0883e;
+}
+.lb-banner .lb-rank { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; color: #f0883e; }
+.lb-banner .lb-rank-sub { font-size: 13px; color: #8b949e; margin-top: 4px; }
+.lb-table { width: 100%; border-collapse: collapse; }
+.lb-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  border-radius: 10px; margin-bottom: 6px; transition: background 0.2s;
+  background: #161b22; border: 1px solid #30363d;
+}
+.lb-row.lb-self { border-color: #f0883e; background: rgba(240,136,62,0.08); }
+.lb-row.lb-private { opacity: 0.5; }
+.lb-pos {
+  font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700;
+  color: #8b949e; min-width: 32px; text-align: center; flex-shrink: 0;
+}
+.lb-row.lb-self .lb-pos { color: #f0883e; }
+.lb-name { flex: 1; font-size: 14px; font-weight: 600; color: #e6edf3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-row.lb-private .lb-name { filter: blur(4px); -webkit-user-select: none; user-select: none; }
+.lb-stats-col { text-align: right; flex-shrink: 0; }
+.lb-avg { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: #f0883e; }
+.lb-taken { font-size: 11px; color: #8b949e; }
+.lb-medal { font-size: 18px; flex-shrink: 0; min-width: 24px; text-align: center; }
+.lb-loading { text-align: center; padding: 40px; color: #8b949e; font-size: 14px; }
+
+/* Smart Review banner on home */
+.smart-review-card {
+  border-radius: 14px; padding: 18px; cursor: pointer; text-align: center;
+  border: 2px solid #30363d; background: rgba(240,136,62,0.06);
+  transition: all 0.2s; margin-top: 12px;
+}
+.smart-review-card:hover { border-color: #f0883e; transform: translateY(-2px); }
+.smart-review-card .sr-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+.smart-review-card .sr-title { font-size: 15px; font-weight: 700; color: #f0883e; }
+.smart-review-card .sr-sub { font-size: 12px; color: #8b949e; margin-top: 4px; font-family: 'Space Mono', monospace; }
+
+/* Progress Dashboard */
+.dash-section { margin-bottom: 28px; }
+.dash-section h3 {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: #8b949e; margin-bottom: 10px;
+}
+.dash-card {
+  background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 8px; transition: background 0.3s, border-color 0.3s;
+}
+.dash-card-title { font-size: 14px; font-weight: 700; color: #e6edf3; margin-bottom: 8px; }
+.dash-bar-wrap { background: #30363d; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.dash-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+.dash-bar-fill.green { background: #3fb950; }
+.dash-bar-fill.orange { background: #f0883e; }
+.dash-bar-fill.red { background: #f85149; }
+.dash-stats-row { display: flex; gap: 16px; font-size: 12px; color: #8b949e; }
+.dash-stats-row span { font-family: 'Space Mono', monospace; }
+.dash-summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dash-summary-card {
+  background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+  padding: 18px; text-align: center; transition: all 0.3s;
+}
+.dash-summary-card .ds-num { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: #f0883e; }
+.dash-summary-card .ds-label { font-size: 11px; color: #8b949e; margin-top: 4px; }
+
+/* Search */
+.search-input-wrap { position: relative; margin-bottom: 20px; }
+.search-input {
+  width: 100%; padding: 14px 18px 14px 44px; border-radius: 10px;
+  font-family: 'Lexend', sans-serif; font-size: 15px;
+  border: 2px solid #30363d; background: #161b22; color: #e6edf3;
+  outline: none; transition: border-color 0.2s;
+}
+.search-input:focus { border-color: #f0883e; }
+.search-input::placeholder { color: #484f58; }
+.search-icon-inside {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 18px; color: #8b949e; pointer-events: none;
+}
+.search-result {
+  background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 8px; cursor: pointer;
+  transition: all 0.15s;
+}
+.search-result:hover { border-color: #f0883e; }
+.search-result .sr-quiz { font-family: 'Space Mono', monospace; font-size: 10px; color: #f0883e; letter-spacing: 1px; margin-bottom: 4px; }
+.search-result .sr-preview { font-size: 14px; color: #e6edf3; line-height: 1.6; }
+.search-result .sr-match { background: rgba(240,136,62,0.2); padding: 1px 3px; border-radius: 3px; }
+.search-empty { text-align: center; padding: 40px; color: #8b949e; font-size: 14px; }
+
+/* Utility buttons row for main menu */
+.menu-utils {
+  display: flex; gap: 10px; margin-top: 20px;
+}
+.menu-utils .btn { flex: 1; font-size: 13px; padding: 12px 8px; }
+
+/* ============================================================
+   NEW FEATURES — LIGHT THEME
+   ============================================================ */
+body.light .profile-pill { background: #e8e5df; border: 1px solid #d0cdc6; color: #555550; }
+body.light .profile-pill:hover { border-color: #b84f0e; color: #b84f0e; }
+body.light .welcome-hero h1 { color: #111111; }
+body.light .welcome-hero h1 em { color: #b84f0e; }
+body.light .welcome-hero p { color: #555550; }
+body.light .welcome-input { border: 2px solid #d0cdc6; background: #ffffff; color: #111111; }
+body.light .welcome-input:focus { border-color: #b84f0e; }
+body.light .welcome-input::placeholder { color: #aaa8a0; }
+body.light .input-label { color: #555550; }
+body.light .settings-row { background: #ffffff; border: 1px solid #d0cdc6; }
+body.light .settings-row .settings-label { color: #111111; }
+body.light .settings-row .settings-sub { color: #555550; }
+body.light .settings-section h3 { color: #111111; }
+body.light .toggle-switch { background: #d0cdc6; }
+body.light .toggle-switch.active { background: #b84f0e; }
+body.light .lb-banner { background: rgba(184,79,14,0.08); border-color: #b84f0e; }
+body.light .lb-banner .lb-rank { color: #b84f0e; }
+body.light .lb-banner .lb-rank-sub { color: #555550; }
+body.light .lb-row { background: #ffffff; border: 1px solid #d0cdc6; }
+body.light .lb-row.lb-self { border-color: #b84f0e; background: rgba(184,79,14,0.06); }
+body.light .lb-pos { color: #555550; }
+body.light .lb-row.lb-self .lb-pos { color: #b84f0e; }
+body.light .lb-name { color: #111111; }
+body.light .lb-avg { color: #b84f0e; }
+body.light .lb-taken { color: #555550; }
+body.light .lb-loading { color: #555550; }
+body.light .smart-review-card { background: rgba(184,79,14,0.04); border-color: #d0cdc6; }
+body.light .smart-review-card:hover { border-color: #b84f0e; }
+body.light .smart-review-card .sr-title { color: #b84f0e; }
+body.light .smart-review-card .sr-sub { color: #555550; }
+body.light .dash-card { background: #ffffff; border-color: #d0cdc6; }
+body.light .dash-card-title { color: #111111; }
+body.light .dash-bar-wrap { background: #d0cdc6; }
+body.light .dash-stats-row { color: #555550; }
+body.light .dash-section h3 { color: #555550; }
+body.light .dash-summary-card { background: #ffffff; border-color: #d0cdc6; }
+body.light .dash-summary-card .ds-num { color: #b84f0e; }
+body.light .dash-summary-card .ds-label { color: #555550; }
+body.light .search-input { border: 2px solid #d0cdc6; background: #ffffff; color: #111111; }
+body.light .search-input:focus { border-color: #b84f0e; }
+body.light .search-input::placeholder { color: #aaa8a0; }
+body.light .search-icon-inside { color: #555550; }
+body.light .search-result { background: #ffffff; border-color: #d0cdc6; }
+body.light .search-result:hover { border-color: #b84f0e; }
+body.light .search-result .sr-quiz { color: #b84f0e; }
+body.light .search-result .sr-preview { color: #111111; }
+body.light .search-result .sr-match { background: rgba(184,79,14,0.15); }
+body.light .search-empty { color: #555550; }
+
+/* ============================================================
+   NEW FEATURES — RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .welcome-hero { padding: 40px 0 30px; }
+  .welcome-hero h1 { font-size: 28px; }
+  .lb-row { padding: 10px 12px; gap: 8px; }
+  .lb-pos { font-size: 12px; min-width: 28px; }
+  .lb-name { font-size: 13px; }
+  .lb-avg { font-size: 13px; }
+  .dash-summary-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .dash-summary-card { padding: 14px; }
+  .dash-summary-card .ds-num { font-size: 20px; }
+  .menu-utils { flex-wrap: wrap; }
+  .menu-utils .btn { min-width: calc(50% - 6px); }
+  .profile-pill { max-width: 100px; font-size: 11px; padding: 3px 8px; }
+}
+@media (max-width: 360px) {
+  .welcome-hero h1 { font-size: 24px; }
+  .dash-summary-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -390,6 +614,7 @@ button, .option, .picker-item, .cat-card { min-height: 44px; }
   <div class="logo" id="appLogo" onclick="showMainMenu()">AEO QUIZ</div>
   <div style="display:flex;align-items:center;gap:10px;">
     <div class="score-pill" id="headerScore" style="display:none">Score: <span id="liveScore">0</span>/<span id="liveTot">0</span></div>
+    <div class="profile-pill" id="profilePill" onclick="showSettingsScreen()" style="display:none" title="Settings"><span class="profile-icon">&#x1F464;</span><span id="profileName">User</span></div>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle light/dark mode">&#x1F319;</button>
   </div>
 </header>
@@ -397,7 +622,7 @@ button, .option, .picker-item, .cat-card { min-height: 44px; }
 <div class="container">
 
   <!-- MAIN MENU -->
-  <div class="screen active" id="mainMenuScreen">
+  <div class="screen" id="mainMenuScreen">
     <div class="home-hero">
       <span class="atom">&#x269B;</span>
       <h1>AEO<br><em>Quiz Platform</em></h1>
@@ -424,6 +649,16 @@ button, .option, .picker-item, .cat-card { min-height: 44px; }
         <div class="cat-title">Mixed Quiz</div>
         <div class="cat-sub" id="catCountMixed">All topics</div>
       </div>
+    </div>
+    <div class="smart-review-card" onclick="startSmartReview()">
+      <span class="sr-icon">&#x1F9E0;</span>
+      <div class="sr-title">Smart Review</div>
+      <div class="sr-sub" id="srQuestionCount">Focuses on your weakest areas</div>
+    </div>
+    <div class="menu-utils">
+      <button class="btn btn-secondary" onclick="showLeaderboardScreen()">&#x1F3C6; Leaderboard</button>
+      <button class="btn btn-secondary" onclick="showDashboardScreen()">&#x1F4CA; Progress</button>
+      <button class="btn btn-secondary" onclick="showSearchScreen()">&#x1F50D; Search</button>
     </div>
   </div>
 
@@ -554,6 +789,110 @@ button, .option, .picker-item, .cat-card { min-height: 44px; }
     </div>
     <div id="pickerList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;"></div>
   </div>
+
+  <!-- WELCOME -->
+  <div class="screen" id="welcomeScreen">
+    <div class="welcome-hero">
+      <span class="atom">&#x269B;</span>
+      <h1>Welcome to<br><em>AEO Quiz</em></h1>
+      <p>Enter your name to get started.<br>Your progress will be tracked locally.</p>
+    </div>
+    <div class="input-group">
+      <div class="input-label">Your Name</div>
+      <input class="welcome-input" id="welcomeNameInput" type="text" placeholder="e.g. John Smith" maxlength="40" autocomplete="off">
+    </div>
+    <button class="btn btn-primary" id="welcomeStartBtn" onclick="submitWelcome()" disabled>Get Started &#x2192;</button>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="screen" id="settingsScreen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <div style="font-size:20px;font-weight:800;">Settings</div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="closeSettings()">&#x2190; Back</button>
+    </div>
+    <div class="settings-section">
+      <h3>Profile</h3>
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Display Name</div>
+          <div class="settings-sub" id="settingsCurrentName">Not set</div>
+        </div>
+        <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="changeUserName()">Change</button>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>Leaderboard</h3>
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Public Profile</div>
+          <div class="settings-sub">Show your name on the leaderboard</div>
+        </div>
+        <div class="toggle-switch" id="publicToggle" onclick="togglePublicProfile()"></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>Data</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn btn-danger btn-full" onclick="resetAllUserData()" style="font-size:13px;padding:12px">&#x1F5D1; Reset All Progress &amp; Data</button>
+        <button class="btn btn-danger btn-full" onclick="deleteAccountData()" style="font-size:13px;padding:12px">&#x26A0; Delete My Scores from Server</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="screen" id="leaderboardScreen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:20px;font-weight:800;">Leaderboard</div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+    </div>
+    <div id="lbBanner" class="lb-banner" style="display:none;">
+      <div class="lb-rank" id="lbRankText">#—</div>
+      <div class="lb-rank-sub" id="lbRankSub">Loading...</div>
+    </div>
+    <div id="lbContent">
+      <div class="lb-loading">Loading leaderboard...</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS DASHBOARD -->
+  <div class="screen" id="dashboardScreen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <div style="font-size:20px;font-weight:800;">Progress</div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+    </div>
+    <div class="dash-section">
+      <h3>Overview</h3>
+      <div class="dash-summary-grid" id="dashOverview"></div>
+    </div>
+    <div class="dash-section">
+      <h3>By Category</h3>
+      <div id="dashCategories"></div>
+    </div>
+    <div class="dash-section">
+      <h3>By Quiz</h3>
+      <div id="dashQuizzes"></div>
+    </div>
+    <div style="margin-top:20px;">
+      <button class="btn btn-danger btn-full" onclick="resetAllSpacedData()" style="font-size:13px;padding:12px">&#x1F5D1; Reset All Progress</button>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="screen" id="searchScreen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:20px;font-weight:800;">Search Questions</div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+    </div>
+    <div class="search-input-wrap">
+      <span class="search-icon-inside">&#x1F50D;</span>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search questions, options..." autocomplete="off">
+    </div>
+    <div id="searchResults">
+      <div class="search-empty">Type at least 2 characters to search across all questions.</div>
+    </div>
+  </div>
+
+  <!-- SMART REVIEW QUIZ (reuses quizScreen, this is just a launching point) -->
 
 </div>
 <script>
@@ -711,6 +1050,7 @@ function showMainMenu(){
   document.getElementById('headerScore').style.display='none';
   document.getElementById('progressBar').style.width='0%';
   document.getElementById('appLogo').textContent='AEO QUIZ';
+  updateSmartReviewCount();
   showScreen('mainMenuScreen');
 }
 
@@ -828,7 +1168,7 @@ function startPoolQuiz(catId, limit){
   // Shuffle then take the requested number
   allQ = shuffle(allQ);
   if(limit && limit < poolSize) allQ = allQ.slice(0, limit);
-  allQ.forEach(function(q,i){ q.id = i+1; });
+  allQ.forEach(function(q,i){ q._realId = q.id; q.id = i+1; });
   var meta = CATEGORY_META[catId];
   var label = limit && limit < poolSize ? limit + ' Questions' : 'All Questions';
   var roomKey = catId.toUpperCase() + '_MIX_' + (limit||'ALL');
@@ -926,6 +1266,7 @@ function startQuiz(mode){
   });
   if(questionOrder==='shuffled') curQs=shuffle(curQs);
   curIdx=0; selOpt=null; answered=false; correct=0; wrongIds=[]; sessResults=[];
+  quizStartTime = Date.now();
   document.getElementById('headerScore').style.display='flex';
   document.getElementById('liveScore').textContent='0';
   document.getElementById('liveTot').textContent=curQs.length;
@@ -1001,6 +1342,10 @@ function submitAnswer(){
     fb.innerHTML='<strong>\u2717 Incorrect</strong>'+(q.exp?nl2br(q.exp):'')+refHtml;
   }
   sessResults.push({id:q._origId||q.id, ok:ok, chosen:selOpt});
+  // Update spaced repetition data
+  var srRoom = q._sourceRoom || currentQuiz.room;
+  var srQid = q._realId || q._origId || q.id;
+  if(srRoom && srRoom !== 'SMART_REVIEW') updateSRForQuestion(srRoom, srQid, ok);
   document.getElementById('liveScore').textContent=correct;
   document.getElementById('submitBtn').style.display='none';
   document.getElementById('hintBtn').style.display='none';
@@ -1045,6 +1390,11 @@ function showResults(){
   saved.attempts++;
   if(saved.best===null||pct>saved.best) saved.best=pct;
   persistMisses();
+  // Submit score to API (fire-and-forget, only for full quizzes not picker mode)
+  if(!pickerMode && currentQuiz.room && currentQuiz.room !== 'SMART_REVIEW'){
+    var elapsedSec = quizStartTime > 0 ? (Date.now() - quizStartTime) / 1000 : 0;
+    submitScoreToAPI(currentQuiz.room, correct, tot, elapsedSec);
+  }
   document.getElementById('resPct').textContent=pct+'%';
   document.getElementById('resCorrect').textContent=correct;
   document.getElementById('resWrong').textContent=tot-correct;
@@ -1144,6 +1494,532 @@ function openSingleQuestion(id){
   renderQ();
 }
 
+/* ============================================================
+   API ENDPOINT
+   ============================================================ */
+var API_URL = 'https://script.google.com/macros/s/AKfycby4wDYW0hFUmAKb4x20m93C2kLQIhqfMOtQtx_EW3iMsZxF-Zolh1ivL3t5dDJzHZpL/exec';
+
+function apiCall(params){
+  try {
+    var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+    fetch(url, {mode:'no-cors'}).catch(function(){});
+  } catch(e){}
+}
+
+function apiFetch(params, cb){
+  try {
+    var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+    fetch(url).then(function(r){ return r.json(); }).then(function(data){ if(cb) cb(data); }).catch(function(e){ if(cb) cb(null); });
+  } catch(e){ if(cb) cb(null); }
+}
+
+/* ============================================================
+   USER PROFILE
+   ============================================================ */
+var aeoUserName = '';
+var aeoUserPublic = false;
+var previousScreen = 'mainMenuScreen';
+
+function getDeviceId(){
+  var id;
+  try { id = localStorage.getItem('aeoDeviceId'); } catch(e){}
+  if(!id){
+    id = 'dev_' + Date.now() + '_' + Math.random().toString(36).substr(2,8);
+    try { localStorage.setItem('aeoDeviceId', id); } catch(e){}
+  }
+  return id;
+}
+
+function initUserProfile(){
+  try {
+    aeoUserName = localStorage.getItem('aeoUserName') || '';
+    aeoUserPublic = localStorage.getItem('aeoUserPublic') === 'yes';
+  } catch(e){}
+  if(!aeoUserName){
+    showScreen('welcomeScreen');
+    document.getElementById('profilePill').style.display = 'none';
+    return false;
+  }
+  document.getElementById('profileName').textContent = aeoUserName;
+  document.getElementById('profilePill').style.display = 'flex';
+  apiCall({action:'login', name:aeoUserName, device:getDeviceId()});
+  return true;
+}
+
+function submitWelcome(){
+  var input = document.getElementById('welcomeNameInput');
+  var name = input.value.trim();
+  if(!name) return;
+  aeoUserName = name;
+  try {
+    localStorage.setItem('aeoUserName', name);
+    localStorage.setItem('aeoUserPublic', 'no');
+  } catch(e){}
+  aeoUserPublic = false;
+  document.getElementById('profileName').textContent = name;
+  document.getElementById('profilePill').style.display = 'flex';
+  apiCall({action:'login', name:name, device:getDeviceId()});
+  showMainMenu();
+}
+
+(function(){
+  var inp = document.getElementById('welcomeNameInput');
+  if(inp){
+    inp.addEventListener('input', function(){
+      document.getElementById('welcomeStartBtn').disabled = !inp.value.trim();
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && inp.value.trim()) submitWelcome();
+    });
+  }
+})();
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+function showSettingsScreen(){
+  previousScreen = document.querySelector('.screen.active');
+  previousScreen = previousScreen ? previousScreen.id : 'mainMenuScreen';
+  document.getElementById('settingsCurrentName').textContent = aeoUserName || 'Not set';
+  var toggle = document.getElementById('publicToggle');
+  toggle.classList.toggle('active', aeoUserPublic);
+  showScreen('settingsScreen');
+}
+
+function closeSettings(){
+  showScreen(previousScreen);
+}
+
+function changeUserName(){
+  var newName = prompt('Enter new display name:', aeoUserName);
+  if(newName === null) return;
+  newName = newName.trim();
+  if(!newName){ alert('Name cannot be empty.'); return; }
+  aeoUserName = newName;
+  try { localStorage.setItem('aeoUserName', newName); } catch(e){}
+  document.getElementById('profileName').textContent = newName;
+  document.getElementById('settingsCurrentName').textContent = newName;
+  apiCall({action:'login', name:newName, device:getDeviceId()});
+}
+
+function togglePublicProfile(){
+  aeoUserPublic = !aeoUserPublic;
+  try { localStorage.setItem('aeoUserPublic', aeoUserPublic ? 'yes' : 'no'); } catch(e){}
+  document.getElementById('publicToggle').classList.toggle('active', aeoUserPublic);
+  apiCall({action:'setpublic', name:aeoUserName, 'public': aeoUserPublic ? 'yes' : 'no'});
+}
+
+function resetAllUserData(){
+  if(!confirm('This will reset ALL your local progress, spaced repetition data, and quiz history.\n\nAre you sure?')) return;
+  if(!confirm('This cannot be undone. Continue?')) return;
+  try {
+    var keysToRemove = [];
+    for(var i = 0; i < localStorage.length; i++){
+      var key = localStorage.key(i);
+      if(key && (key.startsWith('nqState_') || key.startsWith('aeoSR_') || key === 'aeoUserName' || key === 'aeoUserPublic')) keysToRemove.push(key);
+    }
+    keysToRemove.forEach(function(k){ localStorage.removeItem(k); });
+  } catch(e){}
+  aeoUserName = '';
+  aeoUserPublic = false;
+  document.getElementById('profilePill').style.display = 'none';
+  showScreen('welcomeScreen');
+}
+
+function deleteAccountData(){
+  if(!confirm('This will delete all your scores from the server.\n\nLocal progress will NOT be affected.\n\nAre you sure?')) return;
+  apiCall({action:'reset', name:aeoUserName});
+  alert('Server data deletion requested. It may take a moment to process.');
+}
+
+/* ============================================================
+   SCORE SUBMISSION & TIMER
+   ============================================================ */
+var quizStartTime = 0;
+
+function submitScoreToAPI(quizRoom, scoreVal, totalVal, elapsedSec){
+  if(!aeoUserName) return;
+  apiCall({action:'submit', name:aeoUserName, quiz:quizRoom, score:scoreVal, total:totalVal, time:Math.round(elapsedSec)});
+}
+
+/* ============================================================
+   SPACED REPETITION
+   ============================================================ */
+function getSRData(){
+  var data = {};
+  try {
+    var raw = localStorage.getItem('aeoSR_data');
+    if(raw) data = JSON.parse(raw);
+  } catch(e){}
+  return data;
+}
+
+function saveSRData(data){
+  try { localStorage.setItem('aeoSR_data', JSON.stringify(data)); } catch(e){}
+}
+
+function updateSRForQuestion(room, questionId, wasCorrect){
+  var data = getSRData();
+  var key = room + '_Q' + questionId;
+  if(!data[key]) data[key] = {correct:0, wrong:0, lastSeen:0};
+  if(wasCorrect) data[key].correct++;
+  else data[key].wrong++;
+  data[key].lastSeen = Date.now();
+  saveSRData(data);
+}
+
+function getSmartReviewQuestions(count){
+  count = count || 20;
+  var data = getSRData();
+  var allQuestions = [];
+  var now = Date.now();
+  // Gather all questions from all quizzes
+  var allRegistered = [].concat(QUIZ_REGISTRY.reactor||[], QUIZ_REGISTRY.thermo||[]);
+  allRegistered.forEach(function(def){
+    var result = loadQuiz(def.room);
+    if(!result) return;
+    result.normalized.forEach(function(q){
+      var key = def.room + '_Q' + q.id;
+      var sr = data[key];
+      var weight;
+      if(!sr){
+        // Never seen — highest priority
+        weight = 2.0;
+      } else {
+        var total = sr.correct + sr.wrong;
+        var errorRate = (sr.wrong + 1) / (total + 1);
+        // Recency boost: questions seen longer ago get higher weight
+        var hoursSince = (now - sr.lastSeen) / (1000 * 60 * 60);
+        var recencyBoost = Math.min(1 + hoursSince / 24, 3);
+        weight = errorRate * recencyBoost;
+        // If answered correctly many times recently, reduce weight further
+        if(sr.correct > 3 && sr.wrong === 0 && hoursSince < 24) weight *= 0.1;
+      }
+      allQuestions.push({q: Object.assign({}, q, {_sourceRoom: def.room}), weight: weight, key: key});
+    });
+  });
+  if(allQuestions.length === 0) return [];
+  // Weighted random selection
+  allQuestions.sort(function(a, b){ return b.weight - a.weight; });
+  // Take top candidates (top 3x the count) then shuffle for variety
+  var candidates = allQuestions.slice(0, Math.min(count * 3, allQuestions.length));
+  var selected = [];
+  while(selected.length < count && candidates.length > 0){
+    var totalWeight = candidates.reduce(function(s, c){ return s + c.weight; }, 0);
+    var r = Math.random() * totalWeight;
+    var cum = 0;
+    for(var i = 0; i < candidates.length; i++){
+      cum += candidates[i].weight;
+      if(cum >= r){
+        selected.push(candidates[i].q);
+        candidates.splice(i, 1);
+        break;
+      }
+    }
+  }
+  // Preserve original IDs for spaced repetition tracking, renumber display IDs
+  selected.forEach(function(q, i){ q._realId = q.id; q.id = i + 1; });
+  return selected;
+}
+
+function startSmartReview(){
+  var questions = getSmartReviewQuestions(20);
+  if(questions.length === 0){ alert('No questions available for review. Complete some quizzes first!'); return; }
+  activeQ = questions;
+  currentQuiz = {room:'SMART_REVIEW', title:'Smart Review', category:'mixed'};
+  saved = loadSaved('SMART_REVIEW');
+  pickerMode = false;
+  var baseQs = questions.slice();
+  curQs = baseQs.map(function(q){
+    var indices = q.opts.map(function(_,i){return i;});
+    var si = shuffle(indices);
+    return Object.assign({}, q, {opts:si.map(function(i){return q.opts[i];}), ans:si.indexOf(q.ans), _origId:q.id});
+  });
+  curQs = shuffle(curQs);
+  curIdx=0; selOpt=null; answered=false; correct=0; wrongIds=[]; sessResults=[];
+  quizStartTime = Date.now();
+  document.getElementById('headerScore').style.display='flex';
+  document.getElementById('liveScore').textContent='0';
+  document.getElementById('liveTot').textContent=curQs.length;
+  document.getElementById('appLogo').textContent='\u269B Smart Review';
+  updateProg();
+  showScreen('quizScreen');
+  renderQ();
+}
+
+function updateSmartReviewCount(){
+  var data = getSRData();
+  var total = 0;
+  var weak = 0;
+  var allRegistered = [].concat(QUIZ_REGISTRY.reactor||[], QUIZ_REGISTRY.thermo||[]);
+  allRegistered.forEach(function(def){
+    var raw = QUIZ_DATA[def.room];
+    if(!raw) return;
+    (raw.questions||[]).forEach(function(q){
+      total++;
+      var key = def.room + '_Q' + (q.number != null ? q.number : 0);
+      var sr = data[key];
+      if(!sr) weak++;
+      else if(sr.wrong > sr.correct) weak++;
+    });
+  });
+  var el = document.getElementById('srQuestionCount');
+  if(el){
+    if(total === 0) el.textContent = 'No questions available';
+    else el.textContent = weak + ' question' + (weak !== 1 ? 's' : '') + ' need review';
+  }
+}
+
+/* ============================================================
+   LEADERBOARD
+   ============================================================ */
+function showLeaderboardScreen(){
+  showScreen('leaderboardScreen');
+  document.getElementById('lbContent').innerHTML = '<div class="lb-loading">Loading leaderboard...</div>';
+  document.getElementById('lbBanner').style.display = 'none';
+  apiFetch({action:'leaderboard'}, function(data){
+    renderLeaderboard(data);
+  });
+}
+
+function renderLeaderboard(data){
+  var content = document.getElementById('lbContent');
+  var banner = document.getElementById('lbBanner');
+  if(!data || !data.entries || data.entries.length === 0){
+    content.innerHTML = '<div class="lb-loading">No leaderboard data available yet.<br>Complete a quiz to appear here!</div>';
+    banner.style.display = 'none';
+    return;
+  }
+  var entries = data.entries.slice();
+  // Sort by avgScore descending
+  entries.sort(function(a, b){ return (parseFloat(b.avgScore)||0) - (parseFloat(a.avgScore)||0); });
+  // Find current user
+  var myRank = -1;
+  var privateCount = 0;
+  entries.forEach(function(e, i){
+    if(e.name === aeoUserName) myRank = i;
+    if(!e.isPublic && e.name !== aeoUserName) privateCount++;
+  });
+  // Show banner
+  if(myRank >= 0){
+    banner.style.display = 'block';
+    document.getElementById('lbRankText').textContent = '#' + (myRank + 1);
+    document.getElementById('lbRankSub').textContent = 'You are #' + (myRank+1) + ' of ' + entries.length + ' players';
+  } else {
+    banner.style.display = 'block';
+    document.getElementById('lbRankText').textContent = '—';
+    document.getElementById('lbRankSub').textContent = 'Complete a quiz to join the leaderboard';
+  }
+  // Render rows
+  var html = '';
+  var hiddenIdx = 0;
+  entries.forEach(function(e, i){
+    var isSelf = e.name === aeoUserName;
+    var isPrivate = !e.isPublic && !isSelf;
+    var medal = '';
+    if(i === 0) medal = '\uD83E\uDD47';
+    else if(i === 1) medal = '\uD83E\uDD48';
+    else if(i === 2) medal = '\uD83E\uDD49';
+    var displayName = isSelf ? aeoUserName : (isPrivate ? 'Player #' + (++hiddenIdx) : e.name);
+    var avg = parseFloat(e.avgScore) || 0;
+    html += '<div class="lb-row' + (isSelf ? ' lb-self' : '') + (isPrivate ? ' lb-private' : '') + '">' +
+      (medal ? '<div class="lb-medal">' + medal + '</div>' : '') +
+      '<div class="lb-pos">' + (i+1) + '</div>' +
+      '<div class="lb-name">' + escapeHtml(displayName) + '</div>' +
+      '<div class="lb-stats-col"><div class="lb-avg">' + avg.toFixed(0) + '%</div><div class="lb-taken">' + (e.quizzesTaken||0) + ' quizzes</div></div>' +
+      '</div>';
+  });
+  content.innerHTML = html;
+}
+
+/* ============================================================
+   PROGRESS DASHBOARD
+   ============================================================ */
+function showDashboardScreen(){
+  renderDashboard();
+  showScreen('dashboardScreen');
+}
+
+function renderDashboard(){
+  var data = getSRData();
+  var totalAttempted = 0, totalCorrect = 0, totalWrong = 0, totalQuestions = 0;
+  var categoryStats = {};
+  var quizStats = [];
+
+  var allRegistered = [].concat(
+    QUIZ_REGISTRY.reactor.map(function(d){ return Object.assign({}, d, {cat:'reactor'}); }),
+    QUIZ_REGISTRY.thermo.map(function(d){ return Object.assign({}, d, {cat:'thermo'}); })
+  );
+
+  allRegistered.forEach(function(def){
+    var raw = QUIZ_DATA[def.room];
+    if(!raw) return;
+    var qCount = (raw.questions||[]).length;
+    totalQuestions += qCount;
+    var attempted = 0, corr = 0, wrng = 0;
+    (raw.questions||[]).forEach(function(q){
+      var key = def.room + '_Q' + (q.number != null ? q.number : 0);
+      var sr = data[key];
+      if(sr){
+        attempted++;
+        corr += sr.correct;
+        wrng += sr.wrong;
+      }
+    });
+    totalAttempted += attempted;
+    totalCorrect += corr;
+    totalWrong += wrng;
+    // Category aggregation
+    if(!categoryStats[def.cat]) categoryStats[def.cat] = {attempted:0, total:0, correct:0, wrong:0};
+    categoryStats[def.cat].attempted += attempted;
+    categoryStats[def.cat].total += qCount;
+    categoryStats[def.cat].correct += corr;
+    categoryStats[def.cat].wrong += wrng;
+    // Per quiz
+    quizStats.push({room:def.room, label:def.label, total:qCount, attempted:attempted, correct:corr, wrong:wrng});
+  });
+
+  // Overview
+  var overviewEl = document.getElementById('dashOverview');
+  var pctAttempted = totalQuestions > 0 ? Math.round((totalAttempted / totalQuestions) * 100) : 0;
+  var pctCorrect = (totalCorrect + totalWrong) > 0 ? Math.round((totalCorrect / (totalCorrect + totalWrong)) * 100) : 0;
+  overviewEl.innerHTML =
+    '<div class="dash-summary-card"><div class="ds-num">' + totalAttempted + '/' + totalQuestions + '</div><div class="ds-label">Questions Seen</div></div>' +
+    '<div class="dash-summary-card"><div class="ds-num">' + pctAttempted + '%</div><div class="ds-label">Coverage</div></div>' +
+    '<div class="dash-summary-card"><div class="ds-num">' + pctCorrect + '%</div><div class="ds-label">Accuracy</div></div>' +
+    '<div class="dash-summary-card"><div class="ds-num">' + Object.keys(data).length + '</div><div class="ds-label">Total Attempts</div></div>';
+
+  // Categories
+  var catEl = document.getElementById('dashCategories');
+  var catHtml = '';
+  var catNames = {reactor:'Reactor Physics', thermo:'Thermodynamics'};
+  Object.keys(categoryStats).forEach(function(catId){
+    var cs = categoryStats[catId];
+    var pct = cs.total > 0 ? Math.round((cs.attempted / cs.total) * 100) : 0;
+    var acc = (cs.correct + cs.wrong) > 0 ? Math.round((cs.correct / (cs.correct + cs.wrong)) * 100) : 0;
+    var barClass = acc >= 80 ? 'green' : acc >= 60 ? 'orange' : 'red';
+    catHtml += '<div class="dash-card">' +
+      '<div class="dash-card-title">' + (catNames[catId]||catId) + '</div>' +
+      '<div class="dash-bar-wrap"><div class="dash-bar-fill ' + barClass + '" style="width:' + pct + '%"></div></div>' +
+      '<div class="dash-stats-row"><span>' + cs.attempted + '/' + cs.total + ' seen</span><span>' + acc + '% accuracy</span></div>' +
+      '</div>';
+  });
+  catEl.innerHTML = catHtml;
+
+  // Quizzes
+  var quizEl = document.getElementById('dashQuizzes');
+  var qHtml = '';
+  quizStats.forEach(function(qs){
+    var pct = qs.total > 0 ? Math.round((qs.attempted / qs.total) * 100) : 0;
+    var acc = (qs.correct + qs.wrong) > 0 ? Math.round((qs.correct / (qs.correct + qs.wrong)) * 100) : 0;
+    var barClass = acc >= 80 ? 'green' : acc >= 60 ? 'orange' : 'red';
+    if(qs.attempted === 0) barClass = 'orange';
+    qHtml += '<div class="dash-card">' +
+      '<div class="dash-card-title">' + escapeHtml(qs.label) + ' <span style="opacity:0.5;font-size:12px">(' + qs.room + ')</span></div>' +
+      '<div class="dash-bar-wrap"><div class="dash-bar-fill ' + barClass + '" style="width:' + pct + '%"></div></div>' +
+      '<div class="dash-stats-row"><span>' + qs.attempted + '/' + qs.total + ' seen</span><span>' + acc + '% accuracy</span></div>' +
+      '</div>';
+  });
+  quizEl.innerHTML = qHtml;
+}
+
+function resetAllSpacedData(){
+  if(!confirm('This will reset ALL spaced repetition progress across every quiz.\n\nQuiz scores and attempts will NOT be affected.\n\nAre you sure?')) return;
+  try { localStorage.removeItem('aeoSR_data'); } catch(e){}
+  renderDashboard();
+  updateSmartReviewCount();
+  alert('Spaced repetition data has been reset.');
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+function showSearchScreen(){
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '<div class="search-empty">Type at least 2 characters to search across all questions.</div>';
+  showScreen('searchScreen');
+  setTimeout(function(){ document.getElementById('searchInput').focus(); }, 100);
+}
+
+var searchDebounceTimer = null;
+(function(){
+  var inp = document.getElementById('searchInput');
+  if(inp){
+    inp.addEventListener('input', function(){
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(function(){ performSearch(inp.value); }, 200);
+    });
+  }
+})();
+
+function performSearch(query){
+  var container = document.getElementById('searchResults');
+  query = (query || '').trim().toLowerCase();
+  if(query.length < 2){
+    container.innerHTML = '<div class="search-empty">Type at least 2 characters to search across all questions.</div>';
+    return;
+  }
+  var results = [];
+  var allRegistered = [].concat(QUIZ_REGISTRY.reactor||[], QUIZ_REGISTRY.thermo||[]);
+  allRegistered.forEach(function(def){
+    var raw = QUIZ_DATA[def.room];
+    if(!raw) return;
+    var normalized = normalizeQuestions(raw.questions);
+    normalized.forEach(function(q){
+      var haystack = q.q.toLowerCase();
+      q.opts.forEach(function(o){ haystack += ' ' + o.toLowerCase(); });
+      if(haystack.indexOf(query) !== -1){
+        results.push({room: def.room, label: def.label, q: q, quizTitle: raw.title||def.label});
+      }
+    });
+  });
+  if(results.length === 0){
+    container.innerHTML = '<div class="search-empty">No results found for "' + escapeHtml(query) + '"</div>';
+    return;
+  }
+  // Limit to 50 results
+  var limited = results.slice(0, 50);
+  var html = '<div style="font-size:12px;color:inherit;opacity:0.5;margin-bottom:12px;font-family:\'Space Mono\',monospace">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + (results.length > 50 ? ' (showing first 50)' : '') + '</div>';
+  limited.forEach(function(r){
+    var preview = r.q.q.length > 120 ? r.q.q.slice(0, 120) + '\u2026' : r.q.q;
+    // Highlight match in preview
+    var lowerPreview = preview.toLowerCase();
+    var matchIdx = lowerPreview.indexOf(query);
+    var highlightedPreview;
+    if(matchIdx >= 0){
+      highlightedPreview = escapeHtml(preview.slice(0, matchIdx)) +
+        '<span class="sr-match">' + escapeHtml(preview.slice(matchIdx, matchIdx + query.length)) + '</span>' +
+        escapeHtml(preview.slice(matchIdx + query.length));
+    } else {
+      highlightedPreview = escapeHtml(preview);
+    }
+    html += '<div class="search-result" onclick="openSearchResult(\'' + escapeHtml(r.room) + '\',' + r.q.id + ')">' +
+      '<div class="sr-quiz">' + escapeHtml(r.room) + ' \u2014 Q' + r.q.id + '</div>' +
+      '<div class="sr-preview">' + highlightedPreview + '</div>' +
+      '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function openSearchResult(room, questionId){
+  var result = loadQuiz(room);
+  if(!result){ alert('Quiz data not found.'); return; }
+  activeQ = result.normalized;
+  var quizDef = null;
+  var allRegistered = [].concat(QUIZ_REGISTRY.reactor||[], QUIZ_REGISTRY.thermo||[]);
+  allRegistered.forEach(function(def){ if(def.room === room) quizDef = def; });
+  var catId = 'reactor';
+  if(quizDef){
+    QUIZ_REGISTRY.thermo.forEach(function(d){ if(d.room === room) catId = 'thermo'; });
+  }
+  currentQuiz = {room: result.data.room || room, title: result.data.title || room, category: catId};
+  saved = loadSaved(currentQuiz.room);
+  openSingleQuestion(questionId);
+}
+
+/* ============================================================
+   THEME
+   ============================================================ */
 function toggleTheme(){
   var isLight=document.body.classList.toggle('light');
   document.getElementById('themeBtn').textContent=isLight?'\u2600\uFE0F':'\uD83C\uDF19';
@@ -1156,6 +2032,12 @@ function toggleTheme(){
       document.getElementById('themeBtn').textContent='\u2600\uFE0F';
     }
   }catch(e){}
+  // Initialize user profile — if no name, shows welcome screen instead of main menu
+  var hasUser = initUserProfile();
+  if(hasUser){
+    showScreen('mainMenuScreen');
+    updateSmartReviewCount();
+  }
 })();
 
 </script>
