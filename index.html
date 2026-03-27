@@ -2532,7 +2532,8 @@ function loadAdminUsers(){
   var wrap = document.getElementById('adminUsersWrap');
   wrap.innerHTML = '<div class="admin-spinner">Loading users...</div>';
 
-  adminApiCall({action:'admin_users'}, function(data){
+  adminApiCall({action:'admin_users'}, function(resp){
+    var data = resp && resp.users ? resp.users : null;
     if(!data || !Array.isArray(data)){
       wrap.innerHTML = '<div class="admin-spinner">Failed to load users.</div>';
       return;
@@ -2572,7 +2573,8 @@ function loadAdminActivity(){
   var list = document.getElementById('adminActivityList');
   list.innerHTML = '<div class="admin-spinner">Loading activity...</div>';
 
-  adminApiCall({action:'admin_activity', limit:100}, function(data){
+  adminApiCall({action:'admin_activity', limit:100}, function(resp){
+    var data = resp && resp.entries ? resp.entries : null;
     if(!data || !Array.isArray(data)){
       list.innerHTML = '<div class="admin-spinner">Failed to load activity.</div>';
       return;
