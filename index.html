@@ -661,6 +661,10 @@ body.light .search-empty { color: #555550; }
       <button class="btn btn-secondary" onclick="showDashboardScreen()">&#x1F4CA; Progress</button>
       <button class="btn btn-secondary" onclick="showSearchScreen()">&#x1F50D; Search</button>
     </div>
+    <div style="margin-top:16px;display:flex;gap:10px">
+      <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="showSettingsScreen()">&#x2699; Settings</button>
+      <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="logOut()">&#x1F6AA; Log Out</button>
+    </div>
   </div>
 
   <!-- CATEGORY -->
@@ -799,8 +803,8 @@ body.light .search-empty { color: #555550; }
       <p>Create an account or log in to track your progress.</p>
     </div>
     <div class="mode-grid" style="margin-bottom:16px">
-      <button class="btn btn-secondary toggle-active" id="tabRegister" onclick="switchAuthTab('register')">New Account</button>
-      <button class="btn btn-secondary" id="tabLogin" onclick="switchAuthTab('login')">Log In</button>
+      <button class="btn btn-secondary toggle-active" id="tabLogin" onclick="switchAuthTab('login')">Log In</button>
+      <button class="btn btn-secondary" id="tabRegister" onclick="switchAuthTab('register')">New Account</button>
     </div>
     <div id="authError" style="display:none;background:#2d1216;border:1px solid #f85149;color:#f85149;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;text-align:center"></div>
     <div class="input-group">
@@ -811,7 +815,7 @@ body.light .search-empty { color: #555550; }
       <div class="input-label">4-Digit PIN</div>
       <input class="welcome-input" id="welcomePinInput" type="password" inputmode="numeric" pattern="\d{4}" placeholder="e.g. 1234" maxlength="4" autocomplete="off" style="letter-spacing:8px;text-align:center;font-size:22px">
     </div>
-    <button class="btn btn-primary" id="welcomeStartBtn" onclick="submitAuth()" disabled style="margin-top:14px">Create Account &#x2192;</button>
+    <button class="btn btn-primary" id="welcomeStartBtn" onclick="submitAuth()" disabled style="margin-top:14px">Log In &#x2192;</button>
   </div>
 
   <!-- SETTINGS -->
@@ -1529,7 +1533,7 @@ function apiFetch(params, cb){
 var aeoUserName = '';
 var aeoUserPublic = false;
 var aeoUserPin = '';
-var authMode = 'register';
+var authMode = 'login';
 var previousScreen = 'mainMenuScreen';
 
 function getDeviceId(){
