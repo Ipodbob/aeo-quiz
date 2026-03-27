@@ -104,6 +104,7 @@ body.light .btn-secondary { background: #ffffff; color: #111111; border: 1px sol
 body.light .btn-secondary:hover { border-color: #b84f0e; color: #b84f0e; }
 body.light .btn-danger { background: #fadedc; color: #a82118; border: 1px solid #a82118; }
 body.light .btn-danger:hover { background: #f5c8c5; }
+body.light #authError { background: #fadedc; border-color: #a82118; color: #a82118; }
 body.light .toggle-active { border-color: #b84f0e !important; color: #b84f0e !important; background: rgba(184,79,14,0.1) !important; }
 body.light .q-counter { color: #555550; }
 body.light .q-counter span { color: #111111; }
@@ -795,13 +796,22 @@ body.light .search-empty { color: #555550; }
     <div class="welcome-hero">
       <span class="atom">&#x269B;</span>
       <h1>Welcome to<br><em>AEO Quiz</em></h1>
-      <p>Enter your name to get started.<br>Your progress will be tracked locally.</p>
+      <p>Create an account or log in to track your progress.</p>
     </div>
+    <div class="mode-grid" style="margin-bottom:16px">
+      <button class="btn btn-secondary toggle-active" id="tabRegister" onclick="switchAuthTab('register')">New Account</button>
+      <button class="btn btn-secondary" id="tabLogin" onclick="switchAuthTab('login')">Log In</button>
+    </div>
+    <div id="authError" style="display:none;background:#2d1216;border:1px solid #f85149;color:#f85149;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;text-align:center"></div>
     <div class="input-group">
       <div class="input-label">Your Name</div>
       <input class="welcome-input" id="welcomeNameInput" type="text" placeholder="e.g. John Smith" maxlength="40" autocomplete="off">
     </div>
-    <button class="btn btn-primary" id="welcomeStartBtn" onclick="submitWelcome()" disabled>Get Started &#x2192;</button>
+    <div class="input-group" style="margin-top:10px">
+      <div class="input-label">4-Digit PIN</div>
+      <input class="welcome-input" id="welcomePinInput" type="password" inputmode="numeric" pattern="\d{4}" placeholder="e.g. 1234" maxlength="4" autocomplete="off" style="letter-spacing:8px;text-align:center;font-size:22px">
+    </div>
+    <button class="btn btn-primary" id="welcomeStartBtn" onclick="submitAuth()" disabled style="margin-top:14px">Create Account &#x2192;</button>
   </div>
 
   <!-- SETTINGS -->
@@ -814,10 +824,10 @@ body.light .search-empty { color: #555550; }
       <h3>Profile</h3>
       <div class="settings-row">
         <div>
-          <div class="settings-label">Display Name</div>
+          <div class="settings-label">Logged in as</div>
           <div class="settings-sub" id="settingsCurrentName">Not set</div>
         </div>
-        <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="changeUserName()">Change</button>
+        <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="logOut()">Log Out</button>
       </div>
     </div>
     <div class="settings-section">
@@ -1518,6 +1528,8 @@ function apiFetch(params, cb){
    ============================================================ */
 var aeoUserName = '';
 var aeoUserPublic = false;
+var aeoUserPin = '';
+var authMode = 'register';
 var previousScreen = 'mainMenuScreen';
 
 function getDeviceId(){
@@ -1533,43 +1545,97 @@ function getDeviceId(){
 function initUserProfile(){
   try {
     aeoUserName = localStorage.getItem('aeoUserName') || '';
+    aeoUserPin = localStorage.getItem('aeoUserPin') || '';
     aeoUserPublic = localStorage.getItem('aeoUserPublic') === 'yes';
   } catch(e){}
-  if(!aeoUserName){
+  if(!aeoUserName || !aeoUserPin){
     showScreen('welcomeScreen');
     document.getElementById('profilePill').style.display = 'none';
     return false;
   }
   document.getElementById('profileName').textContent = aeoUserName;
   document.getElementById('profilePill').style.display = 'flex';
-  apiCall({action:'login', name:aeoUserName, device:getDeviceId()});
+  apiCall({action:'auth', name:aeoUserName, pin:aeoUserPin, device:getDeviceId()});
   return true;
 }
 
-function submitWelcome(){
-  var input = document.getElementById('welcomeNameInput');
-  var name = input.value.trim();
-  if(!name) return;
-  aeoUserName = name;
-  try {
-    localStorage.setItem('aeoUserName', name);
-    localStorage.setItem('aeoUserPublic', 'no');
-  } catch(e){}
-  aeoUserPublic = false;
-  document.getElementById('profileName').textContent = name;
-  document.getElementById('profilePill').style.display = 'flex';
-  apiCall({action:'login', name:name, device:getDeviceId()});
-  showMainMenu();
+function switchAuthTab(mode){
+  authMode = mode;
+  document.getElementById('tabRegister').classList.toggle('toggle-active', mode==='register');
+  document.getElementById('tabLogin').classList.toggle('toggle-active', mode==='login');
+  document.getElementById('welcomeStartBtn').textContent = mode==='register' ? 'Create Account \u2192' : 'Log In \u2192';
+  document.getElementById('authError').style.display = 'none';
+  checkAuthReady();
+}
+
+function checkAuthReady(){
+  var name = document.getElementById('welcomeNameInput').value.trim();
+  var pin = document.getElementById('welcomePinInput').value.trim();
+  document.getElementById('welcomeStartBtn').disabled = !(name.length >= 2 && /^\d{4}$/.test(pin));
+}
+
+function submitAuth(){
+  var name = document.getElementById('welcomeNameInput').value.trim();
+  var pin = document.getElementById('welcomePinInput').value.trim();
+  if(name.length < 2 || !/^\d{4}$/.test(pin)) return;
+
+  var errBox = document.getElementById('authError');
+  errBox.style.display = 'none';
+  var btn = document.getElementById('welcomeStartBtn');
+  btn.disabled = true;
+  btn.textContent = authMode === 'register' ? 'Creating...' : 'Logging in...';
+
+  var action = authMode === 'register' ? 'register' : 'auth';
+  var url = API_URL + '?action=' + action + '&name=' + encodeURIComponent(name) + '&pin=' + encodeURIComponent(pin) + '&device=' + encodeURIComponent(getDeviceId());
+
+  fetch(url, {mode:'cors',redirect:'follow'}).then(function(r){ return r.json(); }).then(function(data){
+    if(data.ok){
+      var realName = data.name || name;
+      aeoUserName = realName;
+      aeoUserPin = pin;
+      aeoUserPublic = false;
+      try {
+        localStorage.setItem('aeoUserName', realName);
+        localStorage.setItem('aeoUserPin', pin);
+        localStorage.setItem('aeoUserPublic', 'no');
+      } catch(e){}
+      document.getElementById('profileName').textContent = realName;
+      document.getElementById('profilePill').style.display = 'flex';
+      showMainMenu();
+    } else {
+      errBox.textContent = data.error || 'Something went wrong';
+      errBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = authMode === 'register' ? 'Create Account \u2192' : 'Log In \u2192';
+    }
+  }).catch(function(){
+    // Offline fallback - allow local-only usage
+    aeoUserName = name;
+    aeoUserPin = pin;
+    try {
+      localStorage.setItem('aeoUserName', name);
+      localStorage.setItem('aeoUserPin', pin);
+    } catch(e){}
+    document.getElementById('profileName').textContent = name;
+    document.getElementById('profilePill').style.display = 'flex';
+    showMainMenu();
+  });
 }
 
 (function(){
-  var inp = document.getElementById('welcomeNameInput');
-  if(inp){
-    inp.addEventListener('input', function(){
-      document.getElementById('welcomeStartBtn').disabled = !inp.value.trim();
+  var nameInp = document.getElementById('welcomeNameInput');
+  var pinInp = document.getElementById('welcomePinInput');
+  if(nameInp && pinInp){
+    nameInp.addEventListener('input', checkAuthReady);
+    pinInp.addEventListener('input', function(){
+      this.value = this.value.replace(/[^\d]/g,'');
+      checkAuthReady();
     });
-    inp.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' && inp.value.trim()) submitWelcome();
+    pinInp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') submitAuth();
+    });
+    nameInp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') document.getElementById('welcomePinInput').focus();
     });
   }
 })();
@@ -1590,16 +1656,16 @@ function closeSettings(){
   showScreen(previousScreen);
 }
 
-function changeUserName(){
-  var newName = prompt('Enter new display name:', aeoUserName);
-  if(newName === null) return;
-  newName = newName.trim();
-  if(!newName){ alert('Name cannot be empty.'); return; }
-  aeoUserName = newName;
-  try { localStorage.setItem('aeoUserName', newName); } catch(e){}
-  document.getElementById('profileName').textContent = newName;
-  document.getElementById('settingsCurrentName').textContent = newName;
-  apiCall({action:'login', name:newName, device:getDeviceId()});
+function logOut(){
+  if(!confirm('Log out? Your server data is safe. You can log back in with your name and PIN.')) return;
+  aeoUserName = '';
+  aeoUserPin = '';
+  try {
+    localStorage.removeItem('aeoUserName');
+    localStorage.removeItem('aeoUserPin');
+  } catch(e){}
+  document.getElementById('profilePill').style.display = 'none';
+  showScreen('welcomeScreen');
 }
 
 function togglePublicProfile(){
@@ -1616,7 +1682,7 @@ function resetAllUserData(){
     var keysToRemove = [];
     for(var i = 0; i < localStorage.length; i++){
       var key = localStorage.key(i);
-      if(key && (key.startsWith('nqState_') || key.startsWith('aeoSR_') || key === 'aeoUserName' || key === 'aeoUserPublic')) keysToRemove.push(key);
+      if(key && (key.startsWith('nqState_') || key.startsWith('aeoSR_') || key === 'aeoUserName' || key === 'aeoUserPin' || key === 'aeoUserPublic')) keysToRemove.push(key);
     }
     keysToRemove.forEach(function(k){ localStorage.removeItem(k); });
   } catch(e){}
