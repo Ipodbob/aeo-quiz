@@ -809,12 +809,127 @@ body.light .admin-spinner::before { border-color: #d0cdc6; border-top-color: #7c
   .welcome-hero h1 { font-size: 24px; }
   .dash-summary-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   FORMULA SHEET — DARK THEME
+   ============================================================ */
+.formula-section {
+  margin-bottom: 12px; border-radius: 12px; overflow: hidden;
+  background: #161b22; border: 1px solid #30363d; transition: all 0.3s;
+}
+.formula-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; cursor: pointer; user-select: none; transition: background 0.2s;
+}
+.formula-section-header:hover { background: rgba(240,136,62,0.06); }
+.formula-section-title {
+  font-size: 14px; font-weight: 700; color: #f0883e;
+  display: flex; align-items: center; gap: 8px;
+}
+.formula-section-arrow { color: #8b949e; font-size: 12px; transition: transform 0.2s; }
+.formula-section.open .formula-section-arrow { transform: rotate(90deg); }
+.formula-section-body {
+  display: none; padding: 0 16px 14px; font-size: 14px; line-height: 2;
+}
+.formula-section.open .formula-section-body { display: block; }
+.formula-row { color: #e6edf3; padding: 2px 0; }
+.formula-row .formula-symbol { color: #58a6ff; font-family: 'Space Mono', monospace; font-size: 13px; }
+.formula-row .formula-note { color: #8b949e; font-size: 12px; }
+
+/* Formula Sheet — LIGHT THEME */
+body.light .formula-section { background: #ffffff; border-color: #d0cdc6; }
+body.light .formula-section-header:hover { background: rgba(184,79,14,0.04); }
+body.light .formula-section-title { color: #b84f0e; }
+body.light .formula-section-arrow { color: #555550; }
+body.light .formula-section-body { color: #111111; }
+body.light .formula-row { color: #111111; }
+body.light .formula-row .formula-symbol { color: #1452a8; }
+body.light .formula-row .formula-note { color: #555550; }
+
+/* ============================================================
+   ANNOUNCEMENTS — DARK THEME
+   ============================================================ */
+.announcement-banner {
+  border-radius: 10px; padding: 12px 40px 12px 14px; margin-bottom: 16px;
+  font-size: 13px; line-height: 1.6; position: relative; animation: fadeUp 0.25s ease;
+}
+.announcement-banner.ann-info { background: rgba(88,166,255,0.1); border: 1px solid #58a6ff; color: #79c0ff; }
+.announcement-banner.ann-update { background: rgba(63,185,80,0.1); border: 1px solid #3fb950; color: #7ee79a; }
+.announcement-banner.ann-warning { background: rgba(240,136,62,0.12); border: 1px solid #f0883e; color: #f0c090; }
+.announcement-dismiss {
+  position: absolute; top: 8px; right: 10px; background: none; border: none;
+  color: inherit; font-size: 18px; cursor: pointer; opacity: 0.6; line-height: 1;
+  padding: 4px; transition: opacity 0.2s;
+}
+.announcement-dismiss:hover { opacity: 1; }
+.announcement-date { font-family: 'Space Mono', monospace; font-size: 10px; opacity: 0.6; margin-left: 8px; }
+
+/* Announcements — LIGHT THEME */
+body.light .announcement-banner.ann-info { background: rgba(20,82,168,0.06); border-color: #1452a8; color: #1452a8; }
+body.light .announcement-banner.ann-update { background: rgba(24,97,40,0.06); border-color: #186128; color: #186128; }
+body.light .announcement-banner.ann-warning { background: rgba(184,79,14,0.06); border-color: #b84f0e; color: #7a2e00; }
+
+/* ============================================================
+   PROGRESS OVER TIME — DARK THEME
+   ============================================================ */
+.history-chart { font-family: 'Space Mono', monospace; font-size: 11px; line-height: 1; }
+.history-row {
+  display: flex; align-items: center; gap: 8px; padding: 5px 0;
+  border-bottom: 1px solid #21262d;
+}
+.history-date { color: #8b949e; min-width: 70px; flex-shrink: 0; white-space: nowrap; font-size: 10px; }
+.history-quiz { color: #e6edf3; min-width: 80px; max-width: 120px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+.history-bar-wrap { flex: 1; height: 14px; background: #30363d; border-radius: 3px; overflow: hidden; min-width: 60px; }
+.history-bar { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+.history-bar.hb-green { background: #3fb950; }
+.history-bar.hb-orange { background: #f0883e; }
+.history-bar.hb-red { background: #f85149; }
+.history-pct { min-width: 36px; text-align: right; font-weight: 700; font-size: 11px; }
+.history-pct.hp-green { color: #3fb950; }
+.history-pct.hp-orange { color: #f0883e; }
+.history-pct.hp-red { color: #f85149; }
+.history-empty { text-align: center; padding: 20px; color: #8b949e; font-size: 13px; }
+
+/* Progress over time — LIGHT THEME */
+body.light .history-row { border-bottom-color: #e8e5df; }
+body.light .history-date { color: #555550; }
+body.light .history-quiz { color: #111111; }
+body.light .history-bar-wrap { background: #d0cdc6; }
+body.light .history-bar.hb-green { background: #186128; }
+body.light .history-bar.hb-orange { background: #b84f0e; }
+body.light .history-bar.hb-red { background: #a82118; }
+body.light .history-pct.hp-green { color: #186128; }
+body.light .history-pct.hp-orange { color: #b84f0e; }
+body.light .history-pct.hp-red { color: #a82118; }
+body.light .history-empty { color: #555550; }
+
+/* ============================================================
+   OFFLINE BADGE
+   ============================================================ */
+.offline-badge {
+  display: none; font-family: 'Space Mono', monospace; font-size: 10px;
+  padding: 3px 8px; border-radius: 10px; letter-spacing: 1px;
+  background: rgba(248,81,73,0.15); border: 1px solid #f85149; color: #f85149;
+  animation: fadeUp 0.3s ease;
+}
+.offline-badge.show { display: inline-block; }
+body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82118; color: #a82118; }
+
+/* Formula & history responsive */
+@media (max-width: 480px) {
+  .formula-section-body { font-size: 12px; }
+  .history-date { min-width: 55px; }
+  .history-quiz { min-width: 60px; max-width: 80px; }
+  .history-pct { min-width: 30px; }
+  .menu-utils .btn { font-size: 11px; padding: 10px 6px; }
+}
 </style>
 </head>
 <body>
 <header>
   <div class="logo" id="appLogo" onclick="showMainMenu()">AEO QUIZ</div>
   <div style="display:flex;align-items:center;gap:10px;">
+    <span class="offline-badge" id="offlineBadge">OFFLINE</span>
     <div class="score-pill" id="headerScore" style="display:none">Score: <span id="liveScore">0</span>/<span id="liveTot">0</span></div>
     <div class="profile-pill" id="profilePill" onclick="showSettingsScreen()" style="display:none" title="Settings"><span class="profile-icon">&#x1F464;</span><span id="profileName">User</span></div>
     <button class="admin-header-btn" id="adminHeaderBtn" onclick="openAdminPrompt()" title="Admin Panel">&#x1F6E1;</button>
@@ -826,6 +941,7 @@ body.light .admin-spinner::before { border-color: #d0cdc6; border-top-color: #7c
 
   <!-- MAIN MENU -->
   <div class="screen" id="mainMenuScreen">
+    <div id="announcementContainer"></div>
     <div class="home-hero">
       <span class="atom">&#x269B;</span>
       <h1>AEO<br><em>Quiz Platform</em></h1>
@@ -862,6 +978,7 @@ body.light .admin-spinner::before { border-color: #d0cdc6; border-top-color: #7c
       <button class="btn btn-secondary" onclick="showLeaderboardScreen()">&#x1F3C6; Leaderboard</button>
       <button class="btn btn-secondary" onclick="showDashboardScreen()">&#x1F4CA; Progress</button>
       <button class="btn btn-secondary" onclick="showSearchScreen()">&#x1F50D; Search</button>
+      <button class="btn btn-secondary" onclick="showFormulaScreen()">&#x1F4D0; Formulas</button>
     </div>
     <div style="margin-top:16px;display:flex;gap:10px">
       <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="showSettingsScreen()">&#x2699; Settings</button>
@@ -1089,6 +1206,10 @@ body.light .admin-spinner::before { border-color: #d0cdc6; border-top-color: #7c
       <h3>By Quiz</h3>
       <div id="dashQuizzes"></div>
     </div>
+    <div class="dash-section">
+      <h3>Score History (Server)</h3>
+      <div id="dashHistory"><div class="history-empty">Loading history...</div></div>
+    </div>
     <div style="margin-top:20px;">
       <button class="btn btn-danger btn-full" onclick="resetAllSpacedData()" style="font-size:13px;padding:12px">&#x1F5D1; Reset All Progress</button>
     </div>
@@ -1106,6 +1227,120 @@ body.light .admin-spinner::before { border-color: #d0cdc6; border-top-color: #7c
     </div>
     <div id="searchResults">
       <div class="search-empty">Type at least 2 characters to search across all questions.</div>
+    </div>
+  </div>
+
+  <!-- FORMULA SHEET -->
+  <div class="screen" id="formulaScreen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-size:20px;font-weight:800;">Formula Sheet</div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+    </div>
+
+    <div class="formula-section open" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x269B; Nuclear Physics</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-symbol">&#x0394;m = Zm&#x2095; + (A&#x2212;Z)m&#x2099; &#x2212; M</span> <span class="formula-note">(mass defect)</span></div>
+        <div class="formula-row"><span class="formula-symbol">BE = &#x0394;m &#x00D7; 931.5 MeV/u</span> <span class="formula-note">(binding energy)</span></div>
+        <div class="formula-row"><span class="formula-symbol">E = mc&#x00B2;</span> <span class="formula-note">(mass-energy equivalence)</span></div>
+        <div class="formula-row"><span class="formula-symbol">A = &#x03BB;N</span> <span class="formula-note">(activity)</span></div>
+        <div class="formula-row"><span class="formula-symbol">t&#x00BD; = 0.693/&#x03BB;</span> <span class="formula-note">(half-life)</span></div>
+        <div class="formula-row"><span class="formula-symbol">N = N&#x2080; &#x00D7; e&#x207B;&#x1D6CC;&#x1D461;</span> <span class="formula-note">(radioactive decay)</span></div>
+      </div>
+    </div>
+
+    <div class="formula-section" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x1F3AF; Cross Sections &amp; Reactions</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-symbol">&#x03C3;</span> <span class="formula-note">microscopic cross section; units: barns (1b = 10&#x207B;&#x00B2;&#x2074; cm&#x00B2;)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03A3; = N&#x03C3;</span> <span class="formula-note">macroscopic cross section; units: cm&#x207B;&#x00B9;</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03BB; = 1/&#x03A3;</span> <span class="formula-note">(mean free path)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03C6; = nv</span> <span class="formula-note">(neutron flux)</span></div>
+        <div class="formula-row"><span class="formula-symbol">R = &#x03A3;&#x03C6; = N&#x03C3;&#x03C6;</span> <span class="formula-note">(reaction rate)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03C3;&#x2090; = &#x03C3;&#x1D53F; + &#x03C3;&#x1D54C;</span> <span class="formula-note">(absorption = fission + capture)</span></div>
+      </div>
+    </div>
+
+    <div class="formula-section" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x2622; Criticality &amp; Reactivity</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-symbol">k&#x221E; = &#x03B5;pf&#x03B7;</span> <span class="formula-note">(four factor formula)</span></div>
+        <div class="formula-row"><span class="formula-symbol">k&#x2091;&#x1D53F;&#x1D53F; = k&#x221E; &#x00D7; L&#x1D53F; &#x00D7; L&#x1D57;&#x2095;</span> <span class="formula-note">(six factor formula)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03C1; = (k&#x2091;&#x1D53F;&#x1D53F; &#x2212; 1)/k&#x2091;&#x1D53F;&#x1D53F;</span> <span class="formula-note">(reactivity)</span></div>
+        <div class="formula-row"><span class="formula-symbol">1 Nile = 1%&#x0394;k/k = 0.01</span></div>
+        <div class="formula-row"><span class="formula-symbol">1 Dollar = &#x03B2;&#x2091;&#x1D53F;&#x1D53F;</span></div>
+        <div class="formula-row"><span class="formula-symbol">M = 1/(1 &#x2212; k&#x2091;&#x1D53F;&#x1D53F;)</span> <span class="formula-note">(subcritical multiplication)</span></div>
+        <div class="formula-row"><span class="formula-symbol">CR = S&#x2080; &#x00D7; M</span> <span class="formula-note">(count rate)</span></div>
+      </div>
+    </div>
+
+    <div class="formula-section" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x23F1; Reactor Kinetics</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-symbol">&#x03C4; = 26.06/SUR</span> <span class="formula-note">(reactor period)</span></div>
+        <div class="formula-row"><span class="formula-symbol">P&#x1D57; = P&#x2080; &#x00D7; 10&#x1D5E6;&#x1D5E8;&#x1D5E5;&#x00D7;&#x1D461;</span> <span class="formula-note">(power from SUR)</span></div>
+        <div class="formula-row"><span class="formula-symbol">DT = 18/SUR</span> <span class="formula-note">(doubling time, approx)</span></div>
+        <div class="formula-row"><span class="formula-symbol">P = P&#x2080; &#x00D7; &#x03B2;&#x2091;&#x1D53F;&#x1D53F;/(&#x03B2;&#x2091;&#x1D53F;&#x1D53F; &#x2212; &#x03C1;)</span> <span class="formula-note">(prompt drop/jump)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03B2;&#x2091;&#x1D53F;&#x1D53F; &#x2248; 0.0065</span> <span class="formula-note">(U-235); decreases with burnup</span></div>
+      </div>
+    </div>
+
+    <div class="formula-section" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x1F321; Temperature &amp; Reactivity Coefficients</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-note">FTC (Doppler): always negative; |FTC| decreases at higher temps</span></div>
+        <div class="formula-row"><span class="formula-note">MTC: negative in undermoderated; can be positive in overmoderated</span></div>
+        <div class="formula-row"><span class="formula-symbol">Power coeff = FTC + MTC</span> <span class="formula-note">(always negative)</span></div>
+        <div class="formula-row"><span class="formula-symbol">Power defect = &#x222B;(power coeff) from HZP to HFP</span></div>
+        <div class="formula-row"><span class="formula-note">Differential boron worth: less negative at higher temp &amp; boron concentration</span></div>
+      </div>
+    </div>
+
+    <div class="formula-section" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x2623; Fission Product Poisons</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-symbol">Xe-135:</span> <span class="formula-note">&#x03C3;&#x2090; &#x2248; 2.6&#x00D7;10&#x2076; barns, t&#x00BD; = 9.1 h</span></div>
+        <div class="formula-row"><span class="formula-symbol">I-135:</span> <span class="formula-note">t&#x00BD; = 6.6 h (Xe precursor, ~95% of Xe production)</span></div>
+        <div class="formula-row"><span class="formula-note">Xe equilibrium: ~40&#x2013;50 hours; independent of power at high flux</span></div>
+        <div class="formula-row"><span class="formula-note">Post-trip Xe peak: ~10&#x2013;11 hours</span></div>
+        <div class="formula-row"><span class="formula-symbol">Sm-149:</span> <span class="formula-note">stable, &#x03C3;&#x2090; &#x2248; 4&#x00D7;10&#x2074; barns</span></div>
+        <div class="formula-row"><span class="formula-symbol">Pm-149:</span> <span class="formula-note">t&#x00BD; = 53 h (Sm precursor)</span></div>
+        <div class="formula-row"><span class="formula-note">Sm-149 equilibrium: ~25 days; independent of power</span></div>
+      </div>
+    </div>
+
+    <div class="formula-section" onclick="this.classList.toggle('open')">
+      <div class="formula-section-header">
+        <div class="formula-section-title">&#x1F525; Thermodynamics</div>
+        <span class="formula-section-arrow">&#x25B6;</span>
+      </div>
+      <div class="formula-section-body" onclick="event.stopPropagation()">
+        <div class="formula-row"><span class="formula-symbol">P = &#x03C1;gh</span> <span class="formula-note">(hydrostatic pressure)</span></div>
+        <div class="formula-row"><span class="formula-symbol">Gauge = Absolute &#x2212; Atmospheric</span></div>
+        <div class="formula-row"><span class="formula-symbol">x = (h &#x2212; h&#x1D53F;)/(h&#x1D54E; &#x2212; h&#x1D53F;)</span> <span class="formula-note">(quality)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03B7; = 1 &#x2212; T&#x1D53C;&#x1D52C;&#x1D54D;&#x1D541;/T&#x2095;&#x1D52C;&#x1D561;</span> <span class="formula-note">(Carnot efficiency)</span></div>
+        <div class="formula-row"><span class="formula-symbol">Q &#x221D; N, H &#x221D; N&#x00B2;, P &#x221D; N&#x00B3;</span> <span class="formula-note">(pump affinity laws)</span></div>
+        <div class="formula-row"><span class="formula-symbol">LMTD = (&#x0394;T&#x2081; &#x2212; &#x0394;T&#x2082;)/ln(&#x0394;T&#x2081;/&#x0394;T&#x2082;)</span></div>
+        <div class="formula-row"><span class="formula-symbol">DNBR = CHF/actual heat flux</span></div>
+      </div>
     </div>
   </div>
 
@@ -1314,6 +1549,7 @@ function showMainMenu(){
   document.getElementById('progressBar').style.width='0%';
   document.getElementById('appLogo').textContent='AEO QUIZ';
   updateSmartReviewCount();
+  if(typeof renderAnnouncements === 'function') renderAnnouncements();
   showScreen('mainMenuScreen');
 }
 
@@ -2187,6 +2423,7 @@ function renderLeaderboard(data){
    ============================================================ */
 function showDashboardScreen(){
   renderDashboard();
+  if(typeof loadDashboardHistory === 'function') loadDashboardHistory();
   showScreen('dashboardScreen');
 }
 
@@ -2650,6 +2887,217 @@ function adminDeleteUser(target){
 }
 
 /* ============================================================
+   FEATURE: FORMULA SHEET
+   ============================================================ */
+function showFormulaScreen(){
+  showScreen('formulaScreen');
+}
+
+/* ============================================================
+   FEATURE: ANNOUNCEMENTS
+   ============================================================ */
+var ANNOUNCEMENTS = [
+  // {id: 1, text: "Welcome to AEO Quiz!", date: "2026-03-27", type: "info"},
+  // {id: 2, text: "New Reactor Physics quizzes added!", date: "2026-03-27", type: "update"},
+];
+
+function renderAnnouncements(){
+  var container = document.getElementById('announcementContainer');
+  if(!container) return;
+  var dismissed = [];
+  try { dismissed = JSON.parse(localStorage.getItem('aeoAnnDismissed') || '[]'); } catch(e){ dismissed = []; }
+  var toShow = ANNOUNCEMENTS.filter(function(a){
+    return dismissed.indexOf(a.id) === -1;
+  });
+  if(toShow.length === 0){ container.innerHTML = ''; return; }
+  // Show most recent undismissed
+  var ann = toShow[toShow.length - 1];
+  var typeClass = 'ann-info';
+  if(ann.type === 'update') typeClass = 'ann-update';
+  else if(ann.type === 'warning') typeClass = 'ann-warning';
+  container.innerHTML =
+    '<div class="announcement-banner ' + typeClass + '">' +
+      escapeHtml(ann.text) +
+      (ann.date ? '<span class="announcement-date">' + escapeHtml(ann.date) + '</span>' : '') +
+      '<button class="announcement-dismiss" onclick="dismissAnnouncement(' + ann.id + ')" title="Dismiss">&times;</button>' +
+    '</div>';
+}
+
+function dismissAnnouncement(id){
+  var dismissed = [];
+  try { dismissed = JSON.parse(localStorage.getItem('aeoAnnDismissed') || '[]'); } catch(e){ dismissed = []; }
+  if(dismissed.indexOf(id) === -1) dismissed.push(id);
+  try { localStorage.setItem('aeoAnnDismissed', JSON.stringify(dismissed)); } catch(e){}
+  renderAnnouncements();
+}
+
+/* ============================================================
+   FEATURE: PROGRESS OVER TIME (server history)
+   ============================================================ */
+function loadDashboardHistory(){
+  var el = document.getElementById('dashHistory');
+  if(!el) return;
+  if(!aeoUserName){
+    el.innerHTML = '<div class="history-empty">Log in to see server history.</div>';
+    return;
+  }
+  el.innerHTML = '<div class="history-empty">Loading history...</div>';
+  apiFetch({action:'history', name:aeoUserName}, function(data){
+    if(!data || !Array.isArray(data) || data.length === 0){
+      // Try data.history if wrapped
+      var arr = (data && data.history) ? data.history : null;
+      if(!arr || !Array.isArray(arr) || arr.length === 0){
+        el.innerHTML = '<div class="history-empty">No server data yet.</div>';
+        return;
+      }
+      renderHistoryChart(el, arr);
+      return;
+    }
+    renderHistoryChart(el, data);
+  });
+}
+
+function renderHistoryChart(el, entries){
+  // Take the last 20 entries
+  var last20 = entries.slice(-20);
+  if(last20.length === 0){
+    el.innerHTML = '<div class="history-empty">No server data yet.</div>';
+    return;
+  }
+  var html = '<div class="history-chart">';
+  last20.forEach(function(entry){
+    var date = entry.date || entry.timestamp || '';
+    if(date){
+      try {
+        var d = new Date(date);
+        if(!isNaN(d.getTime())){
+          date = (d.getMonth()+1) + '/' + d.getDate();
+        }
+      } catch(e){}
+    }
+    var quiz = entry.quiz || entry.room || '';
+    var score = parseFloat(entry.score) || parseFloat(entry.percentage) || 0;
+    var barClass = score >= 80 ? 'hb-green' : score >= 60 ? 'hb-orange' : 'hb-red';
+    var pctClass = score >= 80 ? 'hp-green' : score >= 60 ? 'hp-orange' : 'hp-red';
+    html +=
+      '<div class="history-row">' +
+        '<span class="history-date">' + escapeHtml(String(date)) + '</span>' +
+        '<span class="history-quiz" title="' + escapeHtml(String(quiz)) + '">' + escapeHtml(String(quiz)) + '</span>' +
+        '<div class="history-bar-wrap"><div class="history-bar ' + barClass + '" style="width:' + Math.min(score, 100) + '%"></div></div>' +
+        '<span class="history-pct ' + pctClass + '">' + Math.round(score) + '%</span>' +
+      '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+/* ============================================================
+   FEATURE: OFFLINE MODE (Service Worker from Blob URL)
+   ============================================================ */
+(function(){
+  // Register inline service worker via blob URL
+  if('serviceWorker' in navigator){
+    var swCode = [
+      "var CACHE_NAME = 'aeo-quiz-v1';",
+      "var CACHE_URL = self.location.href.replace(/sw\\.js.*$/, '').replace(/blob:.*$/, '');",
+      "",
+      "self.addEventListener('install', function(e){",
+      "  e.waitUntil(",
+      "    caches.open(CACHE_NAME).then(function(cache){",
+      "      return cache.addAll([self.registration.scope]);",
+      "    }).catch(function(){})",
+      "  );",
+      "  self.skipWaiting();",
+      "});",
+      "",
+      "self.addEventListener('activate', function(e){",
+      "  e.waitUntil(self.clients.claim());",
+      "});",
+      "",
+      "self.addEventListener('fetch', function(e){",
+      "  if(e.request.mode === 'navigate'){",
+      "    e.respondWith(",
+      "      fetch(e.request).then(function(resp){",
+      "        var clone = resp.clone();",
+      "        caches.open(CACHE_NAME).then(function(cache){ cache.put(e.request, clone); });",
+      "        return resp;",
+      "      }).catch(function(){",
+      "        return caches.match(e.request).then(function(cached){",
+      "          return cached || new Response('Offline — please reconnect.', {headers:{'Content-Type':'text/html'}});",
+      "        });",
+      "      })",
+      "    );",
+      "    return;",
+      "  }",
+      "  // Non-navigation requests: network first, cache fallback",
+      "  e.respondWith(",
+      "    fetch(e.request).catch(function(){",
+      "      return caches.match(e.request);",
+      "    })",
+      "  );",
+      "});"
+    ].join('\n');
+
+    try {
+      var blob = new Blob([swCode], {type: 'application/javascript'});
+      var swUrl = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swUrl, {scope: './'}).then(function(reg){
+        // SW registered
+      }).catch(function(){
+        // Blob SW may not work on all hosts; fall back to Cache API
+        cachePageFallback();
+      });
+    } catch(e){
+      cachePageFallback();
+    }
+  } else {
+    cachePageFallback();
+  }
+
+  function cachePageFallback(){
+    // Direct Cache API fallback (no SW)
+    if(!('caches' in window)) return;
+    try {
+      caches.open('aeo-quiz-fallback-v1').then(function(cache){
+        cache.put(window.location.href, new Response(document.documentElement.outerHTML, {
+          headers: {'Content-Type': 'text/html'}
+        }));
+      }).catch(function(){});
+    } catch(e){}
+  }
+
+  // Offline/online detection
+  function updateOnlineStatus(){
+    var badge = document.getElementById('offlineBadge');
+    if(!badge) return;
+    if(navigator.onLine){
+      badge.classList.remove('show');
+    } else {
+      badge.classList.add('show');
+    }
+  }
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  updateOnlineStatus();
+})();
+
+// Wrap API calls to handle offline gracefully
+var _origApiFetch = apiFetch;
+apiFetch = function(params, cb){
+  if(!navigator.onLine){
+    if(cb) cb(null);
+    return;
+  }
+  _origApiFetch(params, cb);
+};
+
+var _origApiCall = apiCall;
+apiCall = function(params){
+  if(!navigator.onLine) return;
+  _origApiCall(params);
+};
+
+/* ============================================================
    THEME
    ============================================================ */
 function toggleTheme(){
@@ -2674,6 +3122,7 @@ function toggleTheme(){
   if(hasUser){
     showScreen('mainMenuScreen');
     updateSmartReviewCount();
+    if(typeof renderAnnouncements === 'function') renderAnnouncements();
   }
 })();
 
