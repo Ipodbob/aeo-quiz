@@ -2098,6 +2098,11 @@ function toggleTheme(){
       document.getElementById('themeBtn').textContent='\u2600\uFE0F';
     }
   }catch(e){}
+  // ?logout in URL forces re-login
+  if(window.location.search.includes('logout') || window.location.hash.includes('logout')){
+    try { localStorage.removeItem('aeoUserName'); localStorage.removeItem('aeoUserPin'); } catch(e){}
+    window.history.replaceState(null,'',window.location.pathname);
+  }
   // Initialize user profile — if no name, shows welcome screen instead of main menu
   var hasUser = initUserProfile();
   if(hasUser){
