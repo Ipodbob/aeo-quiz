@@ -1127,7 +1127,7 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       <h1>Welcome to<br><em>AEO Quiz</em></h1>
       <p>Start quizzing right away, or log in to track your progress.</p>
     </div>
-    <button class="btn btn-primary btn-full" onclick="startGuestMode()" style="margin-bottom:8px">Guest Login — Start Quiz &#x2192;</button>
+    <button class="btn btn-primary btn-full" onclick="startGuestMode()" style="margin-bottom:8px">Guest Login &#x2192;</button>
     <div style="font-size:11px;opacity:0.4;text-align:center;margin-bottom:20px">No account needed. Progress saved on this device only.</div>
     <div style="text-align:center;margin-bottom:16px;padding-top:16px;border-top:1px solid #30363d">
       <div style="font-size:12px;opacity:0.5;margin-bottom:12px">Or log in to sync scores &amp; appear on the leaderboard</div>
@@ -2780,18 +2780,30 @@ function checkAuthReady(){
   document.getElementById('welcomeStartBtn').disabled = !(name.length >= 2 && /^\d{4}$/.test(pin));
 }
 
+function getGuestId(){
+  var id = '';
+  try { id = localStorage.getItem('aeoGuestId'); } catch(e){}
+  if(!id){
+    // Generate persistent ID from device fingerprint + random seed
+    var seed = Math.random().toString(36).substr(2,4).toUpperCase();
+    id = 'Guest_' + seed;
+    try { localStorage.setItem('aeoGuestId', id); } catch(e){}
+  }
+  return id;
+}
+
 function startGuestMode(){
   aeoGuestMode = true;
-  aeoUserName = 'Guest';
+  var guestId = getGuestId();
+  aeoUserName = guestId;
   aeoUserPin = '';
   try {
     localStorage.setItem('aeoGuestMode', 'yes');
-    localStorage.setItem('aeoUserName', 'Guest');
+    localStorage.setItem('aeoUserName', guestId);
   } catch(e){}
   document.getElementById('profileName').textContent = 'Guest';
   document.getElementById('profilePill').style.display = 'flex';
-  // Log guest visit (fire-and-forget, no auth needed)
-  apiCall({action:'login', name:'Guest_' + Date.now().toString(36)});
+  apiCall({action:'login', name:guestId});
   showMainMenu();
 }
 
