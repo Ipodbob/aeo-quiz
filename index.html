@@ -2628,6 +2628,22 @@ function openSingleQuestion(id){
    ============================================================ */
 var API_URL = 'https://script.google.com/macros/s/AKfycby4wDYW0hFUmAKb4x20m93C2kLQIhqfMOtQtx_EW3iMsZxF-Zolh1ivL3t5dDJzHZpL/exec';
 
+var _cachedLocation = '';
+var _locationFetched = false;
+
+(function(){
+  try {
+    fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){
+      if(d && d.city && d.country_name){
+        _cachedLocation = d.city + ', ' + (d.region||'') + ', ' + d.country_name;
+      } else {
+        _cachedLocation = 'Unknown';
+      }
+      _locationFetched = true;
+    }).catch(function(){ _cachedLocation = 'Unknown'; _locationFetched = true; });
+  } catch(e){ _cachedLocation = 'Unknown'; _locationFetched = true; }
+})();
+
 function getDeviceInfo(){
   var ua = navigator.userAgent||'';
   var browser = 'Unknown';
@@ -2641,7 +2657,7 @@ function getDeviceInfo(){
   var screenSize = screen.width+'x'+screen.height;
   var tz = '';
   try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e){}
-  return {deviceType:deviceType, browser:browser, screenSize:screenSize, tz:tz};
+  return {deviceType:deviceType, browser:browser, screenSize:screenSize, tz:tz, location:_cachedLocation||'Pending'};
 }
 
 function apiCall(params){
@@ -2651,6 +2667,7 @@ function apiCall(params){
     params.browser = params.browser || info.browser;
     params.screenSize = params.screenSize || info.screenSize;
     params.tz = params.tz || info.tz;
+    params.loc = params.loc || info.location;
     var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
     fetch(url, {mode:'no-cors'}).catch(function(){});
   } catch(e){}
@@ -2663,6 +2680,7 @@ function apiFetch(params, cb){
     params.browser = params.browser || info.browser;
     params.screenSize = params.screenSize || info.screenSize;
     params.tz = params.tz || info.tz;
+    params.loc = params.loc || info.location;
     var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
     fetch(url).then(function(r){ return r.json(); }).then(function(data){ if(cb) cb(data); }).catch(function(e){ if(cb) cb(null); });
   } catch(e){ if(cb) cb(null); }
