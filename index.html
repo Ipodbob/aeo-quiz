@@ -3056,7 +3056,9 @@ function renderDashboard(){
   var allRegistered = [].concat(
     QUIZ_REGISTRY.reactor.map(function(d){ return Object.assign({}, d, {cat:'reactor'}); }),
     QUIZ_REGISTRY.thermo.map(function(d){ return Object.assign({}, d, {cat:'thermo'}); }),
-    (QUIZ_REGISTRY.components||[]).map(function(d){ return Object.assign({}, d, {cat:'components'}); })
+    (QUIZ_REGISTRY.components||[]).map(function(d){ return Object.assign({}, d, {cat:'components'}); }),
+    (QUIZ_REGISTRY.systems_m2||[]).map(function(d){ return Object.assign({}, d, {cat:'systems_m2'}); }),
+    (QUIZ_REGISTRY.systems_m3||[]).map(function(d){ return Object.assign({}, d, {cat:'systems_m3'}); })
   );
 
   allRegistered.forEach(function(def){
