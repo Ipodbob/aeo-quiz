@@ -2184,7 +2184,7 @@ function renderMixedScreen(){
   document.getElementById('categoryQuizList').innerHTML = '';
 
   var counts = { reactor: 0, thermo: 0, components: 0, systems_m2: 0, systems_m3: 0 };
-  ['reactor','thermo','components'].forEach(function(cat){
+  ['reactor','thermo','components','systems_m2','systems_m3'].forEach(function(cat){
     (QUIZ_REGISTRY[cat]||[]).forEach(function(def){
       var d = QUIZ_DATA[def.room];
       if(d) counts[cat] += d.questions.length;
@@ -2221,7 +2221,9 @@ function renderMixedScreen(){
   var topicData = [
     {cat:'reactor', label:'Reactor Physics', count:counts.reactor},
     {cat:'thermo', label:'Thermodynamics', count:counts.thermo},
-    {cat:'components', label:'Components', count:counts.components}
+    {cat:'components', label:'Components', count:counts.components},
+    {cat:'systems_m2', label:'Systems Module 2', count:counts.systems_m2||0},
+    {cat:'systems_m3', label:'Systems Module 3', count:counts.systems_m3||0}
   ];
   var listHtml = '<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">';
   topicData.forEach(function(t){
