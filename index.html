@@ -2628,8 +2628,29 @@ function openSingleQuestion(id){
    ============================================================ */
 var API_URL = 'https://script.google.com/macros/s/AKfycby4wDYW0hFUmAKb4x20m93C2kLQIhqfMOtQtx_EW3iMsZxF-Zolh1ivL3t5dDJzHZpL/exec';
 
+function getDeviceInfo(){
+  var ua = navigator.userAgent||'';
+  var browser = 'Unknown';
+  if(ua.indexOf('Firefox')>-1) browser='Firefox';
+  else if(ua.indexOf('Edg/')>-1) browser='Edge';
+  else if(ua.indexOf('Chrome')>-1) browser='Chrome';
+  else if(ua.indexOf('Safari')>-1) browser='Safari';
+  else if(ua.indexOf('Opera')>-1||ua.indexOf('OPR/')>-1) browser='Opera';
+  var deviceType = 'Desktop';
+  if(/Mobi|Android|iPhone|iPad|iPod/i.test(ua)) deviceType = screen.width>768?'Tablet':'Mobile';
+  var screenSize = screen.width+'x'+screen.height;
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e){}
+  return {deviceType:deviceType, browser:browser, screenSize:screenSize, tz:tz};
+}
+
 function apiCall(params){
   try {
+    var info = getDeviceInfo();
+    params.deviceType = params.deviceType || info.deviceType;
+    params.browser = params.browser || info.browser;
+    params.screenSize = params.screenSize || info.screenSize;
+    params.tz = params.tz || info.tz;
     var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
     fetch(url, {mode:'no-cors'}).catch(function(){});
   } catch(e){}
@@ -2637,6 +2658,11 @@ function apiCall(params){
 
 function apiFetch(params, cb){
   try {
+    var info = getDeviceInfo();
+    params.deviceType = params.deviceType || info.deviceType;
+    params.browser = params.browser || info.browser;
+    params.screenSize = params.screenSize || info.screenSize;
+    params.tz = params.tz || info.tz;
     var url = API_URL + '?' + Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
     fetch(url).then(function(r){ return r.json(); }).then(function(data){ if(cb) cb(data); }).catch(function(e){ if(cb) cb(null); });
   } catch(e){ if(cb) cb(null); }
