@@ -2411,6 +2411,9 @@ function renderQ(){
   hintBtn.disabled=false; hintBtn.classList.remove('hint-used');
   studyBtn.style.display = q.study ? 'inline-flex' : 'none';
   studyBtn.disabled=false; studyBtn.classList.remove('hint-used');
+  // Systems quizzes have no study material, just answers — change button label
+  var isSystemsQuiz = (q._sourceRoom||currentQuiz.room||'').indexOf('SZB') === 0;
+  studyBtn.innerHTML = isSystemsQuiz ? '\uD83D\uDCA1 Answer' : '\uD83D\uDCD6 Study';
   document.getElementById('submitBtn').style.display='inline-flex';
   document.getElementById('submitBtn').disabled=true;
   document.getElementById('nextBtn').style.display='none';
@@ -2580,7 +2583,9 @@ function showStudy(){
   var orig=activeQ.find(function(x){return x.id===(q._origId||q.id);});
   if(!orig||!orig.study) return;
   var cleaned = fixStudyLetters(orig.study);
-  document.getElementById('studyBox').innerHTML='<strong>\uD83D\uDCD6 Study Material</strong><br><pre style="white-space:pre-wrap;font-family:Lexend,sans-serif;font-size:13px;line-height:1.8;margin-top:8px;">'+escapeHtml(cleaned)+'</pre>';
+  var isSystemsQ = (q._sourceRoom||currentQuiz.room||'').indexOf('SZB') === 0;
+  var boxTitle = isSystemsQ ? '\uD83D\uDCA1 Answer' : '\uD83D\uDCD6 Study Material';
+  document.getElementById('studyBox').innerHTML='<strong>'+boxTitle+'</strong><br><pre style="white-space:pre-wrap;font-family:Lexend,sans-serif;font-size:13px;line-height:1.8;margin-top:8px;">'+escapeHtml(cleaned)+'</pre>';
   document.getElementById('studyBox').style.display='block';
   document.getElementById('studyBtn').disabled=true;
   document.getElementById('studyBtn').classList.add('hint-used');
