@@ -1859,19 +1859,24 @@ function showMainMenu(){
   updateSmartReviewCount();
   if(typeof renderAnnouncements === 'function') renderAnnouncements();
   // Adjust UI for guest mode
+  var goToAuth = function(){
+    try { localStorage.removeItem('aeoGuestMode'); localStorage.removeItem('aeoUserName'); } catch(e){}
+    aeoGuestMode = false; aeoUserName = '';
+    document.getElementById('profilePill').style.display = 'none';
+    showScreen('welcomeScreen');
+  };
   if(aeoGuestMode){
-    document.getElementById('menuLogoutBtn').innerHTML = '\u270F Create Account';
-    document.getElementById('menuLogoutBtn').onclick = function(){
-      try { localStorage.removeItem('aeoGuestMode'); localStorage.removeItem('aeoUserName'); } catch(e){}
-      aeoGuestMode = false; aeoUserName = '';
-      showScreen('welcomeScreen');
-      document.getElementById('profilePill').style.display = 'none';
-    };
-    document.getElementById('menuSettingsBtn').style.display = 'none';
+    document.getElementById('menuSettingsBtn').innerHTML = '\uD83D\uDD11 Log In';
+    document.getElementById('menuSettingsBtn').onclick = function(){ switchAuthTab('login'); goToAuth(); };
+    document.getElementById('menuSettingsBtn').style.display = '';
+    document.getElementById('menuLogoutBtn').innerHTML = '\u270F New Account';
+    document.getElementById('menuLogoutBtn').onclick = function(){ switchAuthTab('register'); goToAuth(); };
   } else {
+    document.getElementById('menuSettingsBtn').innerHTML = '\u2699 Settings';
+    document.getElementById('menuSettingsBtn').onclick = function(){ showSettingsScreen(); };
+    document.getElementById('menuSettingsBtn').style.display = '';
     document.getElementById('menuLogoutBtn').innerHTML = '\uD83D\uDEAA Log Out';
     document.getElementById('menuLogoutBtn').onclick = function(){ logOut(); };
-    document.getElementById('menuSettingsBtn').style.display = '';
   }
   showScreen('mainMenuScreen');
 }
