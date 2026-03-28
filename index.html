@@ -1263,7 +1263,7 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
         <div class="formula-row"><span class="formula-symbol">&#x03BB; = 1/&#x03A3;</span> <span class="formula-note">(mean free path)</span></div>
         <div class="formula-row"><span class="formula-symbol">&#x03C6; = nv</span> <span class="formula-note">(neutron flux)</span></div>
         <div class="formula-row"><span class="formula-symbol">R = &#x03A3;&#x03C6; = N&#x03C3;&#x03C6;</span> <span class="formula-note">(reaction rate)</span></div>
-        <div class="formula-row"><span class="formula-symbol">&#x03C3;&#x2090; = &#x03C3;&#x1D53F; + &#x03C3;&#x1D54C;</span> <span class="formula-note">(absorption = fission + capture)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03C3;a = &#x03C3;f + &#x03C3;c</span> <span class="formula-note">(absorption = fission + capture)</span></div>
       </div>
     </div>
 
@@ -1274,11 +1274,11 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       </div>
       <div class="formula-section-body" onclick="event.stopPropagation()">
         <div class="formula-row"><span class="formula-symbol">k&#x221E; = &#x03B5;pf&#x03B7;</span> <span class="formula-note">(four factor formula)</span></div>
-        <div class="formula-row"><span class="formula-symbol">k&#x2091;&#x1D53F;&#x1D53F; = k&#x221E; &#x00D7; L&#x1D53F; &#x00D7; L&#x1D57;&#x2095;</span> <span class="formula-note">(six factor formula)</span></div>
-        <div class="formula-row"><span class="formula-symbol">&#x03C1; = (k&#x2091;&#x1D53F;&#x1D53F; &#x2212; 1)/k&#x2091;&#x1D53F;&#x1D53F;</span> <span class="formula-note">(reactivity)</span></div>
+        <div class="formula-row"><span class="formula-symbol">keff = k&#x221E; &#x00D7; Lf &#x00D7; Lth</span> <span class="formula-note">(six factor formula)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03C1; = (keff &#x2212; 1)/keff</span> <span class="formula-note">(reactivity)</span></div>
         <div class="formula-row"><span class="formula-symbol">1 Nile = 1%&#x0394;k/k = 0.01</span></div>
-        <div class="formula-row"><span class="formula-symbol">1 Dollar = &#x03B2;&#x2091;&#x1D53F;&#x1D53F;</span></div>
-        <div class="formula-row"><span class="formula-symbol">M = 1/(1 &#x2212; k&#x2091;&#x1D53F;&#x1D53F;)</span> <span class="formula-note">(subcritical multiplication)</span></div>
+        <div class="formula-row"><span class="formula-symbol">1 Dollar = &#x03B2;eff</span></div>
+        <div class="formula-row"><span class="formula-symbol">M = 1/(1 &#x2212; keff)</span> <span class="formula-note">(subcritical multiplication)</span></div>
         <div class="formula-row"><span class="formula-symbol">CR = S&#x2080; &#x00D7; M</span> <span class="formula-note">(count rate)</span></div>
       </div>
     </div>
@@ -1290,10 +1290,10 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       </div>
       <div class="formula-section-body" onclick="event.stopPropagation()">
         <div class="formula-row"><span class="formula-symbol">&#x03C4; = 26.06/SUR</span> <span class="formula-note">(reactor period)</span></div>
-        <div class="formula-row"><span class="formula-symbol">P&#x1D57; = P&#x2080; &#x00D7; 10&#x1D5E6;&#x1D5E8;&#x1D5E5;&#x00D7;&#x1D461;</span> <span class="formula-note">(power from SUR)</span></div>
+        <div class="formula-row"><span class="formula-symbol">Pt = P&#x2080; &#x00D7; 10^(SUR&#x00D7;t)</span> <span class="formula-note">(power from SUR)</span></div>
         <div class="formula-row"><span class="formula-symbol">DT = 18/SUR</span> <span class="formula-note">(doubling time, approx)</span></div>
-        <div class="formula-row"><span class="formula-symbol">P = P&#x2080; &#x00D7; &#x03B2;&#x2091;&#x1D53F;&#x1D53F;/(&#x03B2;&#x2091;&#x1D53F;&#x1D53F; &#x2212; &#x03C1;)</span> <span class="formula-note">(prompt drop/jump)</span></div>
-        <div class="formula-row"><span class="formula-symbol">&#x03B2;&#x2091;&#x1D53F;&#x1D53F; &#x2248; 0.0065</span> <span class="formula-note">(U-235); decreases with burnup</span></div>
+        <div class="formula-row"><span class="formula-symbol">P = P&#x2080; &#x00D7; &#x03B2;eff/(&#x03B2;eff &#x2212; &#x03C1;)</span> <span class="formula-note">(prompt drop/jump)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03B2;eff &#x2248; 0.0065</span> <span class="formula-note">(U-235); decreases with burnup</span></div>
       </div>
     </div>
 
@@ -1335,8 +1335,8 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       <div class="formula-section-body" onclick="event.stopPropagation()">
         <div class="formula-row"><span class="formula-symbol">P = &#x03C1;gh</span> <span class="formula-note">(hydrostatic pressure)</span></div>
         <div class="formula-row"><span class="formula-symbol">Gauge = Absolute &#x2212; Atmospheric</span></div>
-        <div class="formula-row"><span class="formula-symbol">x = (h &#x2212; h&#x1D53F;)/(h&#x1D54E; &#x2212; h&#x1D53F;)</span> <span class="formula-note">(quality)</span></div>
-        <div class="formula-row"><span class="formula-symbol">&#x03B7; = 1 &#x2212; T&#x1D53C;&#x1D52C;&#x1D54D;&#x1D541;/T&#x2095;&#x1D52C;&#x1D561;</span> <span class="formula-note">(Carnot efficiency)</span></div>
+        <div class="formula-row"><span class="formula-symbol">x = (h &#x2212; hf)/(hg &#x2212; hf)</span> <span class="formula-note">(quality)</span></div>
+        <div class="formula-row"><span class="formula-symbol">&#x03B7; = 1 &#x2212; Tcold/Thot</span> <span class="formula-note">(Carnot efficiency)</span></div>
         <div class="formula-row"><span class="formula-symbol">Q &#x221D; N, H &#x221D; N&#x00B2;, P &#x221D; N&#x00B3;</span> <span class="formula-note">(pump affinity laws)</span></div>
         <div class="formula-row"><span class="formula-symbol">LMTD = (&#x0394;T&#x2081; &#x2212; &#x0394;T&#x2082;)/ln(&#x0394;T&#x2081;/&#x0394;T&#x2082;)</span></div>
         <div class="formula-row"><span class="formula-symbol">DNBR = CHF/actual heat flux</span></div>
