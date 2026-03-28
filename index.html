@@ -2509,7 +2509,6 @@ function updateProg(){
 
 function endQuiz(){
   if(pickerMode){ persistMisses(); pickerMode=false; showPicker(); return; }
-  if(!confirm('Quit? Progress will be lost.')) return;
   document.getElementById('headerScore').style.display='none';
   document.getElementById('progressBar').style.width='0%';
   goHome();
