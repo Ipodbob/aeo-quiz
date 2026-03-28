@@ -963,21 +963,16 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
         <div class="cat-title">Components</div>
         <div class="cat-sub" id="catCountComponents">8 quizzes</div>
       </div>
-      <div class="cat-card" onclick="openCategory('systems_m2')">
-        <span class="cat-icon">&#x2699;</span>
-        <div class="cat-title">Systems M2</div>
-        <div class="cat-sub" id="catCountSystemsM2">15 lessons</div>
-      </div>
-      <div class="cat-card" onclick="openCategory('systems_m3')">
-        <span class="cat-icon">&#x1F6E1;</span>
-        <div class="cat-title">Systems M3</div>
-        <div class="cat-sub" id="catCountSystemsM3">11 lessons</div>
-      </div>
-      <div class="cat-card" onclick="openCategory('mixed')">
+      <div class="cat-card" onclick="openCategory('mixed')" style="grid-column:span 2">
         <span class="cat-icon">&#x1F9EA;</span>
         <div class="cat-title">Mixed Quiz</div>
         <div class="cat-sub" id="catCountMixed">All topics</div>
       </div>
+    </div>
+    <div class="smart-review-card" onclick="openSystemsHub()" style="margin-top:12px">
+      <span class="sr-icon">&#x2699;</span>
+      <div class="sr-title">Systems for Engineers</div>
+      <div class="sr-sub">378 questions across 3 modules</div>
     </div>
     <div class="smart-review-card" onclick="startSmartReview()">
       <span class="sr-icon">&#x1F9E0;</span>
@@ -1004,7 +999,7 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
         <div id="categoryTitle" style="font-size:20px;font-weight:800;">Category</div>
         <div class="section-label" id="categorySubtitle" style="margin-top:4px;">Pick a quiz</div>
       </div>
-      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" id="categoryBackBtn" onclick="showMainMenu()">&#x2190; Back</button>
     </div>
     <div id="categoryMixBox" style="margin-bottom:20px;"></div>
     <div class="section-label" id="categoryQuizLabel">Individual Quizzes</div>
@@ -1179,6 +1174,40 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       <div style="display:flex;flex-direction:column;gap:10px;">
         <button class="btn btn-danger btn-full" onclick="resetAllUserData()" style="font-size:13px;padding:12px">&#x1F5D1; Reset All Progress &amp; Data</button>
         <button class="btn btn-danger btn-full" onclick="deleteAccountData()" style="font-size:13px;padding:12px">&#x26A0; Delete My Scores from Server</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEMS HUB -->
+  <div class="screen" id="systemsHubScreen">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div>
+        <div style="font-size:20px;font-weight:800;">Systems for Engineers</div>
+        <div class="section-label" style="margin-top:4px;">Select a module</div>
+      </div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:12px" onclick="showMainMenu()">&#x2190; Back</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="picker-item" style="padding:14px 16px;opacity:0.5;cursor:default;">
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:15px">Module 1</div>
+          <div style="font-size:12px;opacity:0.6;margin-top:2px">Coming soon</div>
+        </div>
+        <div style="font-size:12px;opacity:0.5">TBD</div>
+      </div>
+      <div class="picker-item" onclick="openCategory('systems_m2')" style="padding:14px 16px;cursor:pointer">
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:15px">Module 2 &#x2014; Plant Systems</div>
+          <div style="font-size:12px;opacity:0.6;margin-top:2px">ACW, CCW, RCS, Pressuriser, CVCS, Steam, Feedwater, Turbine + more</div>
+        </div>
+        <div style="font-size:12px;opacity:0.5">204q</div>
+      </div>
+      <div class="picker-item" onclick="openCategory('systems_m3')" style="padding:14px 16px;cursor:pointer">
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:15px">Module 3 &#x2014; Safety &amp; Emergency</div>
+          <div style="font-size:12px;opacity:0.6;margin-top:2px">Safety Injection, Containment, Reactor Protection, Diesels, Fire + more</div>
+        </div>
+        <div style="font-size:12px;opacity:0.5">174q</div>
       </div>
     </div>
   </div>
@@ -1827,6 +1856,10 @@ function showMainMenu(){
   showScreen('mainMenuScreen');
 }
 
+function openSystemsHub(){
+  showScreen('systemsHubScreen');
+}
+
 function showCategoryScreen(){
   var catId = currentQuiz.category||'reactor';
   if(catId==='mixed'){ startMixedQuiz(); return; }
@@ -1877,6 +1910,13 @@ function renderCategoryScreen(catId){
   initCatToggles(catId);
   document.getElementById('categoryTitle').textContent = meta.title;
   document.getElementById('categorySubtitle').textContent = meta.subtitle;
+
+  // Set back button: systems categories go to systems hub, others go to main menu
+  var backBtn = document.getElementById('categoryBackBtn');
+  if(backBtn){
+    var isSystem = catId.indexOf('systems') === 0;
+    backBtn.onclick = function(){ isSystem ? openSystemsHub() : showMainMenu(); };
+  }
 
   var mixBox = document.getElementById('categoryMixBox');
   var quizLabel = document.getElementById('categoryQuizLabel');
