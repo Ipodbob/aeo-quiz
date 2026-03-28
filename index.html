@@ -985,9 +985,9 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       <button class="btn btn-secondary" onclick="showSearchScreen()">&#x1F50D; Search</button>
       <button class="btn btn-secondary" onclick="showFormulaScreen()">&#x1F4D0; Formulas</button>
     </div>
-    <div style="margin-top:16px;display:flex;gap:10px">
-      <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="showSettingsScreen()">&#x2699; Settings</button>
-      <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="logOut()">&#x1F6AA; Log Out</button>
+    <div style="margin-top:16px;display:flex;gap:10px" id="menuBottomBtns">
+      <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="showSettingsScreen()" id="menuSettingsBtn">&#x2699; Settings</button>
+      <button class="btn btn-secondary" style="flex:1;font-size:13px;padding:10px" onclick="logOut()" id="menuLogoutBtn">&#x1F6AA; Log Out</button>
     </div>
     <button class="btn admin-menu-btn" id="adminMenuBtn" onclick="openAdminPrompt()">&#x1F6E1; Admin Panel</button>
   </div>
@@ -1141,6 +1141,10 @@ body.light .offline-badge { background: rgba(168,33,24,0.08); border-color: #a82
       <input class="welcome-input" id="welcomePinInput" type="password" inputmode="numeric" pattern="\d{4}" placeholder="e.g. 1234" maxlength="4" autocomplete="off" style="letter-spacing:8px;text-align:center;font-size:22px">
     </div>
     <button class="btn btn-primary" id="welcomeStartBtn" onclick="submitAuth()" disabled style="margin-top:14px">Log In &#x2192;</button>
+    <div style="text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid #30363d">
+      <button class="btn btn-secondary" onclick="startGuestMode()" style="font-size:13px;padding:10px 20px;opacity:0.7">Continue as Guest</button>
+      <div style="font-size:11px;opacity:0.4;margin-top:6px">No tracking. Progress saved locally only.</div>
+    </div>
   </div>
 
   <!-- SETTINGS -->
@@ -1853,6 +1857,21 @@ function showMainMenu(){
   document.getElementById('appLogo').textContent='AEO QUIZ';
   updateSmartReviewCount();
   if(typeof renderAnnouncements === 'function') renderAnnouncements();
+  // Adjust UI for guest mode
+  if(aeoGuestMode){
+    document.getElementById('menuLogoutBtn').innerHTML = '\u270F Create Account';
+    document.getElementById('menuLogoutBtn').onclick = function(){
+      try { localStorage.removeItem('aeoGuestMode'); localStorage.removeItem('aeoUserName'); } catch(e){}
+      aeoGuestMode = false; aeoUserName = '';
+      showScreen('welcomeScreen');
+      document.getElementById('profilePill').style.display = 'none';
+    };
+    document.getElementById('menuSettingsBtn').style.display = 'none';
+  } else {
+    document.getElementById('menuLogoutBtn').innerHTML = '\uD83D\uDEAA Log Out';
+    document.getElementById('menuLogoutBtn').onclick = function(){ logOut(); };
+    document.getElementById('menuSettingsBtn').style.display = '';
+  }
   showScreen('mainMenuScreen');
 }
 
@@ -2692,6 +2711,7 @@ function apiFetch(params, cb){
 var aeoUserName = '';
 var aeoUserPublic = false;
 var aeoUserPin = '';
+var aeoGuestMode = false;
 var authMode = 'login';
 var previousScreen = 'mainMenuScreen';
 
@@ -2712,6 +2732,13 @@ function initUserProfile(){
     aeoUserPublic = localStorage.getItem('aeoUserPublic') === 'yes';
     aeoUserRole = localStorage.getItem('aeoUserRole') || '';
   } catch(e){}
+  // Check for guest mode
+  try { aeoGuestMode = localStorage.getItem('aeoGuestMode') === 'yes'; } catch(e){}
+  if(aeoGuestMode && aeoUserName === 'Guest'){
+    document.getElementById('profileName').textContent = 'Guest';
+    document.getElementById('profilePill').style.display = 'flex';
+    return true;
+  }
   if(!aeoUserName || !aeoUserPin){
     showScreen('welcomeScreen');
     document.getElementById('profilePill').style.display = 'none';
@@ -2745,6 +2772,21 @@ function checkAuthReady(){
   var name = document.getElementById('welcomeNameInput').value.trim();
   var pin = document.getElementById('welcomePinInput').value.trim();
   document.getElementById('welcomeStartBtn').disabled = !(name.length >= 2 && /^\d{4}$/.test(pin));
+}
+
+function startGuestMode(){
+  aeoGuestMode = true;
+  aeoUserName = 'Guest';
+  aeoUserPin = '';
+  try {
+    localStorage.setItem('aeoGuestMode', 'yes');
+    localStorage.setItem('aeoUserName', 'Guest');
+  } catch(e){}
+  document.getElementById('profileName').textContent = 'Guest';
+  document.getElementById('profilePill').style.display = 'flex';
+  // Log guest visit (fire-and-forget, no auth needed)
+  apiCall({action:'login', name:'Guest_' + Date.now().toString(36)});
+  showMainMenu();
 }
 
 function submitAuth(){
@@ -2888,7 +2930,7 @@ function deleteAccountData(){
 var quizStartTime = 0;
 
 function submitScoreToAPI(quizRoom, scoreVal, totalVal, elapsedSec){
-  if(!aeoUserName) return;
+  if(!aeoUserName || aeoGuestMode) return;
   apiCall({action:'submit', name:aeoUserName, quiz:quizRoom, score:scoreVal, total:totalVal, time:Math.round(elapsedSec)});
 }
 
@@ -3781,7 +3823,7 @@ function toggleTheme(){
   }catch(e){}
   // ?logout in URL forces re-login
   if(window.location.search.includes('logout') || window.location.hash.includes('logout')){
-    try { localStorage.removeItem('aeoUserName'); localStorage.removeItem('aeoUserPin'); localStorage.removeItem('aeoUserRole'); sessionStorage.removeItem('aeoAdminPw'); } catch(e){}
+    try { localStorage.removeItem('aeoUserName'); localStorage.removeItem('aeoUserPin'); localStorage.removeItem('aeoUserRole'); localStorage.removeItem('aeoGuestMode'); sessionStorage.removeItem('aeoAdminPw'); } catch(e){}
     window.history.replaceState(null,'',window.location.pathname);
   }
   // Initialize user profile — if no name, shows welcome screen instead of main menu
