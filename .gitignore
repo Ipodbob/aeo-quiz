@@ -16,3 +16,7 @@ package.json
 package-lock.json
 Thumbs.db
 .claude/
+
+# Corporate variant (not for public GitHub distribution — for internal SharePoint/share drive use only)
+AEO-Quiz-corporate.html
+build_corporate_variant.js
